@@ -7,7 +7,8 @@ def Home(request):
     m_p.save()
     return render(request,'index.html',{'preethu':'pravalika'})
 
-
+def form(request):
+    return render(request,'form.html')
 
 def TopPerfomance(request):
     m_p_obj=models.match_performance.objects.all()
