@@ -1,0 +1,187 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <style>
+
+
+      tr:hover
+      {
+        background-color:#ffffff;
+      }
+      table{
+    	width:800px;
+    	margin:auto;
+    	text-align:center;
+    	table-layout:fixed;
+      width:80px;
+    }
+      table,tr
+      {
+        border: 2px solid black;
+      }
+
+      table,tr,th,td{
+      	padding:25px;
+      	color:white;
+      	font-size:18px;
+      	font-family:Arial;
+      	background:linear-gradient(top, #3c3c3c 0%, #222222 100%);
+      	background:-webkit-linear-gradient(top, #3c3c3c 0%, #222222 100%);
+        text-align: center;
+      }
+
+      body {
+        background-image: url('{% static "img/stadium1.jpg"%}');
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        background-size: 100% 100%;
+        background-color: rgba(255,255,255,0.2);
+        background-blend-mode: lighten;
+          }
+
+      caption
+      {
+        color:#ff9900;
+        font-family:verdana;
+        font-size:40px;
+      }
+    </style>
+
+  </head>
+  <body>
+
+    <nav class="navbar navbar-inverse">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">HOME</a>
+        </div>
+
+
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <ul class="nav navbar-nav">
+          <li><a href="#">User Team Selection</a></li>
+          <li><a href="#">Leader Board</a></li>
+          <li><a href="#">Top Perfomers</a></li>
+          <li><a href="#">Perfomance analysis</a></li>
+        </ul>
+
+
+        </div><!-- /.navbar-collapse -->
+      </div><!-- /.container-fluid -->
+
+    </nav>
+
+
+
+
+
+
+    <div class="container">
+    <table class="table table-hover">
+      <caption><b>Batsman</b></caption>
+      <tr>
+        <th>Match Id</th>
+        <th>Player Id</th>
+        <th>Runs</th>
+        <th>Catches</th>
+        <th>Wickets</th>
+        <th>Categorey</th>
+      </tr>
+      {% for i in x %}
+      <tr>
+        <td>{{i.match_id}}</td>
+        <td>{{i.player_id}}</td>
+        <td>{{i.runs}}</td>
+        <td>{{i.catches}}</td>
+        <td>{{i.wickets}}</td>
+        <td>{{i.category}}</td>
+      </tr>
+      {% endfor %}
+    </table>
+
+    <table class="table table-hover">
+    <caption><b>Baller</b></caption>
+    <tr>
+      <th>Match Id</th>
+      <th>Player Id</th>
+      <th>Runs</th>
+      <th>Catches</th>
+      <th>Wickets</th>
+      <th>Categorey</th>
+    </tr>
+    {% for i in y %}
+    <tr>
+      <td>{{i.match_id}}</td>
+      <td>{{i.player_id}}</td>
+      <td>{{i.runs}}</td>
+      <td>{{i.catches}}</td>
+      <td>{{i.wickets}}</td>
+      <td>{{i.category}}</td>
+    </tr>
+    {% endfor %}
+  </table>
+
+
+  <table class="table table-hover">
+  <caption><b>Wicker Keeper</b></caption>
+  <tr>
+    <th>Match Id</th>
+    <th>Player Id</th>
+    <th>Runs</th>
+    <th>Catches</th>
+    <th>Wickets</th>
+    <th>Categorey</th>
+  </tr>
+  {% for i in z %}
+  <tr>
+    <td>{{i.match_id}}</td>
+    <td>{{i.player_id}}</td>
+    <td>{{i.runs}}</td>
+    <td>{{i.catches}}</td>
+    <td>{{i.wickets}}</td>
+    <td>{{i.category}}</td>
+  </tr>
+  {% endfor %}
+</table>
+
+
+<table class="table table-hover">
+<caption><b>All Rounder</b></caption>
+<tr>
+  <th>Match Id</th>
+  <th>Player Id</th>
+  <th>Runs</th>
+  <th>Catches</th>
+  <th>Wickets</th>
+  <th>Categorey</th>
+</tr>
+{% for i in h %}
+<tr>
+  <td>{{i.match_id}}</td>
+  <td>{{i.player_id}}</td>
+  <td>{{i.runs}}</td>
+  <td>{{i.catches}}</td>
+  <td>{{i.wickets}}</td>
+  <td>{{i.category}}</td>
+</tr>
+{% endfor %}
+</table>
+
+
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+
+
+  </body>
+</html>
