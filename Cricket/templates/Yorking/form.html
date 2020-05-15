@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href='{% static "Yorking/css/form.css"  %}'/>
+  </head>
+  <body>
+
+    <!-- NAVBAR -->
+    <nav class="navbar navbar-inverse">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+            <a class="navbar-brand" href="#">HOME</a>
+        </div>
+
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+          <ul class="nav navbar-nav">
+            <li ><a href="Bootstrap_Project_Main.html">Top Prefomers</a></li>
+            <li ><a href="Bootstrap_Project_Main.html">Edit Match Perfomance</a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+
+    <!-- EVERYTHING INSIDE HTML PAGE -->
+    <div class="container">
+      <div class="split left">
+        <div class="jumbotron">
+
+          <!-- LEFT HALF OF THE PAGE -->
+          <h1>Create Match!</h1>
+          <img src='{% static "Yorking/img/cricket1.png" %}'class='relative' alt='My image'/>
+        </div>
+      </div>
+      <div class="split right">
+        <div class="jumbotron">
+
+            <!-- RIGHT HALF OF THE PAGE -->
+          <form method="POST">
+
+            {% csrf_token %}
+
+            <div class="form-group">
+              <label for="countryone">Country 1:</label>
+              <input type="text"  class="form-control margin-bottom textbox" name='country1' id="country1" placeholder="First Country" required>
+            </div>
+
+            <div class="form-group">
+              <label for="countrytwo">Country 2:</label>
+              <input type="text" class="form-control margin-bottom textbox" name='country2' id="country2" placeholder="Second Country" required>
+            </div>
+
+            <button type="submit" class="btn btn-warning margin-bottom button">Submit</button>
+          </form>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- BOOTSTRAP AND JQUERY LINKS -->
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+  </body>
+</html>
