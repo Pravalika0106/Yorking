@@ -46,7 +46,7 @@
         <div class="jumbotron">
 
             <!-- RIGHT HALF OF THE PAGE -->
-          <form action="{% url 'Yorking:selection' %}" method="POST">
+          <form method="POST">
 
             {% csrf_token %}
 
@@ -60,7 +60,11 @@
               <input type="text" class="form-control margin-bottom textbox" name='country2' id="country2" placeholder="Second Country" required>
             </div>
 
-            <button type="submit" class="btn btn-warning margin-bottom button">Submit</button>
+            <div class="form-group">
+              <button type="submit" name="submit" class="btn btn-warning margin-bottom button">Submit</button>
+            </div>
+
+            <button type="submit" name="select" class="btn btn-warning margin-bottom button">Select Players</button>
           </form>
         </div>
       </div>
