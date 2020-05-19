@@ -1,10 +1,116 @@
 <!DOCTYPE html>
+{% load static %}
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
     <title></title>
+    <link rel="stylesheet" type="text/css" href='{% static "Yorking/css/team_selection.css"  %}'/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
   </head>
   <body>
-    <h1>Perfomance Update</h1>
+    <div class="container">
+      <div class="jumbotron">
+        <h1>Match ID!</h1>
+        <div class="container">
+          <form action="{% url 'Yorking:check' %}" method="POST">
+            {% csrf_token%}
+            {% if validation %}
+            {% for i in validation %}
+            <h2>{{i}}</h2>
+            {% endfor %}
+            {% endif %}
+
+            <h2>Country 1:</h2>
+            {% for i in batsman1 %}
+            <h3>BATSMAN:</h3>
+            <div class="form-group">
+              <input type="checkbox" name="batsman1" value={{i.player_name}}>
+              <label for="player">Player ID:{{i.player_id}}</label>
+              <label for="player">Player Name:{{i.player_name}}</label>
+              <span class="checkmark"></span>
+            </div>
+            {% endfor %}
+
+            {% for i in baller1 %}
+            <h3>BALLER:</h3>
+            <div class="form-group">
+              <input type="checkbox" name="baller1" value={{i.player_name}}>
+              <label for="player">Player ID:{{i.player_id}}</label>
+              <label for="player">Player Name:{{i.player_name}}</label>
+              <span class="checkmark"></span>
+            </div>
+            {% endfor %}
+
+            {% for i in wicketkeeper1 %}
+            <h3>WICKET KEEPER:</h3>
+            <div class="form-group">
+              <input type="checkbox" name="wicketkeeper1" value={{i.player_name}}>
+              <label for="player">Player ID:{{i.player_id}}</label>
+              <label for="player">Player Name:{{i.player_name}}</label>
+              <span class="checkmark"></span>
+            </div>
+            {% endfor %}
+
+            {% for i in allrounder1 %}
+            <h3>ALL ROUNDER:</h3>
+            <div class="form-group">
+              <input type="checkbox" name="allrounder1" value={{i.player_name}}>
+              <label for="player">Player ID:{{i.player_id}}</label>
+              <label for="player">Player Name:{{i.player_name}}</label>
+              <span class="checkmark"></span>
+            </div>
+            {% endfor %}
+
+
+            <h2>Country 2:</h2>
+            {% for i in batsman2 %}
+            <h3>BATSMAN:</h3>
+            <div class="form-group">
+              <input type="checkbox" name="batsman2" value={{i.player_name}}>
+              <label for="player">Player ID:{{i.player_id}}</label>
+              <label for="player">Player Name:{{i.player_name}}</label>
+              <span class="checkmark"></span>
+            </div>
+            {% endfor %}
+
+            {% for i in baller2 %}
+            <h3>BALLER:</h3>
+            <div class="form-group">
+              <input type="checkbox" name="baller2" value={{i.player_name}}>
+              <label for="player">Player ID:{{i.player_id}}</label>
+              <label for="player">Player Name:{{i.player_name}}</label>
+              <span class="checkmark"></span>
+            </div>
+            {% endfor %}
+
+            {% for i in wicketkeeper2 %}
+            <h3>WICKET KEEPER:</h3>
+            <div class="form-group">
+              <input type="checkbox" name="wicketkeeper2" value={{i.player_name}}>
+              <label for="player">Player ID:{{i.player_id}}</label>
+              <label for="player">Player Name:{{i.player_name}}</label>
+              <span class="checkmark"></span>
+            </div>
+            {% endfor %}
+
+            {% for i in allrounder2 %}
+            <h3>ALL ROUNDER:</h3>
+            <div class="form-group">
+              <input type="checkbox" name="allrounder2" value={{i.player_name}}>
+              <label for="player">Player ID:{{i.player_id}}</label>
+              <label for="player">Player Name:{{i.player_name}}</label>
+              <span class="checkmark"></span>
+            </div>
+            {% endfor %}
+            <button type="submit" class="btn btn-warning margin-bottom button">Submit</button>
+          </form>
+        </div>
+      </div>
+
+    </div>
+    <!-- BOOTSTRAP AND JQUERY LINKS -->
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
   </body>
 </html>
