@@ -19,56 +19,77 @@ def edit_selection(request):
 def playerperfomance(request):
     if request.method=='POST':
         matchid=request.POST.get('matchid')
-        match_user_coun1=match_user.objects.filter(match_id__exact=matchid).values('country1')
-        match_user_coun2=match_user.objects.filter(match_id__exact=matchid).values('country2')
-        batsman1=country_team.objects.filter(country__exact=match_user_coun1) & country_team.objects.filter(category__exact='batsman')
-        baller1=country_team.objects.filter(country__exact=match_user_coun1,category__exact='baller')
-        wicketkeeper1=country_team.objects.filter(country__exact=match_user_coun1,category__exact='wicketkeeper')
-        allrounder1=country_team.objects.filter(country__exact=match_user_coun1,category__exact='allrounder')
-        batsman2=country_team.objects.filter(country__exact=match_user_coun2,category__exact='batsman')
-        baller2=country_team.objects.filter(country__exact=match_user_coun2,category__exact='baller')
-        wicketkeeper2=country_team.objects.filter(country__exact=match_user_coun2,category__exact='wicketkeeper')
-        allrounder2=country_team.objects.filter(country__exact=match_user_coun2,category__exact='allrounder')
+        match_user_coun1=match_user.objects.filter(match_id__exact=matchid).values('country1')[0]['country1']
+        match_user_coun2=match_user.objects.filter(match_id__exact=matchid).values('country2')[0]['country2']
+        batsman1=country_team.objects.filter(country__exact=match_user_coun1,category__exact='batsman').values()
+        request.session['batsman1']=list(batsman1)
+        baller1=country_team.objects.filter(country__exact=match_user_coun1,category__exact='baller').values()
+        request.session['baller1']=list(baller1)
+        wicketkeeper1=country_team.objects.filter(country__exact=match_user_coun1,category__exact='wicketkeeper').values()
+        request.session['wicketkeeper1']=list(wicketkeeper1)
+        allrounder1=country_team.objects.filter(country__exact=match_user_coun1,category__exact='allrounder').values()
+        request.session['allrounder1']=list(allrounder1)
+        batsman2=country_team.objects.filter(country__exact=match_user_coun2,category__exact='batsman').values()
+        request.session['batsman2']=list(batsman2)
+        baller2=country_team.objects.filter(country__exact=match_user_coun2,category__exact='baller').values()
+        request.session['baller2']=list(baller2)
+        wicketkeeper2=country_team.objects.filter(country__exact=match_user_coun2,category__exact='wicketkeeper').values()
+        request.session['wicketkeeper1']=list(wicketkeeper2)
+        allrounder2=country_team.objects.filter(country__exact=match_user_coun2,category__exact='allrounder').values()
+        request.session['allrounder2']=list(allrounder2)
         return render(request,'Yorking/playerperfomance.html',{'validation':[],'batsman1':batsman1,'baller1':baller1,'wicketkeeper1':wicketkeeper1,'allrounder1':allrounder1,'batsman2':batsman2,'baller2':baller2,'wicketkeeper2':wicketkeeper2,'allrounder2':allrounder2})
-
+    else:
+        return render(request,'Yorking/index.html')
 
 def check_constrains(request):
-    batsman1=request.POST.getlist('batsman1')
-    baller1=request.POST.getlist('baller1')
-    wicketkeeper1=request.POST.getlist('wicketkeeper1')
-    allrounder1=request.POST.getlist('allrounder1')
-    batsman2=request.POST.getlist('batsman2')
-    baller2=request.POST.getlist('baller2')
-    wicketkeeper2=request.POST.getlist('wicketkeeper2')
-    allrounder2=request.POST.getlist('allrounder2')
-    if len(batsman1)<4:
-        validation.append("Min 4 batsman required in Country 1")
-    if len(baller1)<3:
-        validation.append("Min 3 ballers required in Country 1")
-    if len(wicketkeeper1)<1:
-        validation.append("Min 1 wicketkeeper required you got 0 in Country 1")
-    if len(allrounder1)<1:
-        validation.append("Min 1 allrounder required you got 0 in Country 1")
-    if len(batsman1)+len(baller1)+len(wicketkeeper1)+len(allrounder1)<11:
-        validation.append("Min 11 players required in Country 1")
-    if len(batsman2)<4:
-        validation.append("Min 4 batsman required in Country 2")
-    if len(baller2)<3:
-        validation.append("Min 3 ballers required in Country 2")
-    if len(wicketkeeper2)<1:
-        validation.append("Min 1 wicketkeeper required you got 0 in Country 2")
-    if len(allrounder2)<1:
-        validation.append("Min 1 allrounder required you got 0 in Country 2")
-    if len(batsman2)+len(baller2)+len(wicketkeeper2)+len(allrounder2)<11:
-        validation.append("Min 11 players required in Country 2")
-    return render(request,'Yorking/playerperfomance.html',{'validation':validation,'batsman':batsman,'baller':baller,'wicketkeeper':wicketkeeper,'allrounder':allrounder})
+    batsman1=request.session['batsman1']
+    baller1=request.session['baller1']
+    wicketkeeper1=request.session['wicketkeeper1']
+    allrounder1=request.session['allrounder1']
+    batsman2=request.session['batsman2']
+    baller2=request.session['baller2']
+    wicketkeeper2=request.session['wicketkeeper1']
+    allrounder2=request.session['allrounder2']
 
+    batsmanone=request.POST.getlist('batsman1')
+    ballerone=request.POST.getlist('baller1')
+    wicketkeeperone=request.POST.getlist('wicketkeeper1')
+    allrounderone=request.POST.getlist('allrounder1')
+    batsmantwo=request.POST.getlist('batsman2')
+    ballertwo=request.POST.getlist('baller2')
+    wicketkeepertwo=request.POST.getlist('wicketkeeper2')
+    allroundertwo=request.POST.getlist('allrounder2')
+    validation=[]
+    if len(batsmanone)<4:
+        validation.append("Min 4 batsman required in Country 1")
+    if len(ballerone)<3:
+        validation.append("Min 3 ballers required in Country 1")
+    if len(wicketkeeperone)<1:
+        validation.append("Min 1 wicketkeeper required you got 0 in Country 1")
+    if len(allrounderone)<1:
+        validation.append("Min 1 allrounder required you got 0 in Country 1")
+    if len(batsmanone)+len(ballerone)+len(wicketkeeperone)+len(allrounderone)<11:
+        validation.append("Min 11 players required in Country 1")
+    if len(batsmantwo)<4:
+        validation.append("Min 4 batsman required in Country 2")
+    if len(ballertwo)<3:
+        validation.append("Min 3 ballers required in Country 2")
+    if len(wicketkeepertwo)<1:
+        validation.append("Min 1 wicketkeeper required you got 0 in Country 2")
+    if len(allroundertwo)<1:
+        validation.append("Min 1 allrounder required you got 0 in Country 2")
+    if len(batsmantwo)+len(ballertwo)+len(wicketkeepertwo)+len(allroundertwo)<11:
+        validation.append("Min 11 players required in Country 2")
+    print(validation[0])
+    if validation != []:
+        return render(request,'Yorking/playerperfomance.html',{'validation':[],'batsman1':batsman1,'baller1':baller1,'wicketkeeper1':wicketkeeper1,'allrounder1':allrounder1,'batsman2':batsman2,'baller2':baller2,'wicketkeeper2':wicketkeeper2,'allrounder2':allrounder2})
+    else:
+        return render(request,'Yorking/perfomance_update.html',{})
 
 
 def perfomance_update(request):
-    lists=request.POST.getlist('player')
     print(lists)
-    return render(request,'Yorking/perfomance_update.html',{'players':lists})
+    return render(request,'Yorking/perfomance_update.html',{})
 
 
 
