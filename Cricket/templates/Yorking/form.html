@@ -49,6 +49,11 @@
           <form action="{% url 'Yorking:form_check' %}" method="POST">
 
             {% csrf_token %}
+            {% if error %}
+            {% for i in error %}
+            <h2>{{i}}</h2>
+            {% endfor %}
+            {% endif %}
 
             <div class="form-group">
               <label for="countryone">Country 1:</label>

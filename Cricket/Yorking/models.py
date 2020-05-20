@@ -1,22 +1,27 @@
 from django.db import models
 from uuid import uuid4
+from django.core.exceptions import ValidationError
 # Create your models here.
+
+# def validate_match_id(value):
+# 	if match_id !=
+
 class country_team(models.Model):
-	player_id=models.UUIDField(primary_key=True,default=uuid4,editable=False)
+	player_id=models.CharField(primary_key=True,default=uuid4().hex,max_length=100,editable=False)
 	player_name=models.CharField(max_length=200)
 	category=models.CharField(max_length=200)
 	points=models.IntegerField(default=6)
 	country=models.CharField(max_length=200)
 
 class user(models.Model):
-	user_id=models.UUIDField(primary_key=True,default=uuid4,editable=False)
+	user_id=models.CharField(primary_key=True,default=uuid4().hex,max_length=100,editable=False)
 	user_name=models.CharField(max_length=200)
 	phn_num=models.CharField(max_length=13)
 	email=models.EmailField(max_length=200)
 	password=models.CharField(max_length=200)
 
 class match_user(models.Model):
-    match_id=models.UUIDField(primary_key=True,default=uuid4,editable=False)
+    match_id=models.CharField(primary_key=True,default=uuid4().hex,max_length=100,editable=False)
     country1=models.CharField(max_length=200)
     country2=models.CharField(max_length=200)
     status=models.CharField(max_length=200,default='Not occured')

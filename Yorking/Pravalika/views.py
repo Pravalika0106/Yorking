@@ -1,10 +1,10 @@
 from django.shortcuts import render
 from . import models
 # Create your views here.
+
 def Home(request):
     # m_p=models.match_performance(match_id='M501',player_id='101',runs = 50,catches=8,wickets=7,category='allrounder')
-
-    m_p.save()
+    # m_p.save()
     return render(request,'index.html',{'preethu':'pravalika'})
 
 def form(request):
