@@ -12,7 +12,7 @@
       <div class="jumbotron">
         <h1>Match ID!</h1>
         <div class="container">
-          <form action="{% url 'Yorking:constrains' %}" method="POST">
+          <form action="{% url 'Yorking:index' %}" method="POST">
             {% csrf_token%}
             {% if validation %}
             {% for i in validation %}

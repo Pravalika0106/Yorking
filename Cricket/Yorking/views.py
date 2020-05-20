@@ -73,11 +73,10 @@ def check_constrains(request):
         validation.append("Min 1 allrounder required you got 0 in Country 2")
     if len(batsmantwo)+len(ballertwo)+len(wicketkeepertwo)+len(allroundertwo)<11:
         validation.append("Min 11 players required in Country 2")
-    print(validation[0])
     if validation != []:
         return render(request,'Yorking/playerperfomance.html',{'validation':validation,'batsman1':batsman1,'baller1':baller1,'wicketkeeper1':wicketkeeper1,'allrounder1':allrounder1,'batsman2':batsman2,'baller2':baller2,'wicketkeeper2':wicketkeeper2,'allrounder2':allrounder2})
     else:
-        return render(request,'Yorking/perfomance_update.html',{})
+        return render(request,'Yorking/perfomance_update.html',{'batsmanone':batsmanone,'ballerone':ballerone,'wicketkeeperone':wicketkeeperone,'allrounderone':allrounderone,'batsmantwo':batsmantwo,'ballertwo':ballertwo,'wicketkeepertwo':wicketkeepertwo,'allroundertwo':allroundertwo})
 
 
 def perfomance_update(request):
@@ -89,7 +88,6 @@ def perfomance_update(request):
     ballertwo=request.POST.getlist('baller2')
     wicketkeepertwo=request.POST.getlist('wicketkeeper2')
     allroundertwo=request.POST.getlist('allrounder2')
-    print(batsmanone)
     return render(request,'Yorking/perfomance_update.html',{'batsmanone':batsmanone,'ballerone':ballerone,'wicketkeeperone':wicketkeeperone,'allrounderone':allrounderone,'batsmantwo':batsmantwo,'ballertwo':ballertwo,'wicketkeepertwo':wicketkeepertwo,'allroundertwo':allroundertwo})
 
 
@@ -108,7 +106,6 @@ def perfomance_update(request):
 def modelform(request):
     country_team_obj=country_team.objects.order_by('country').values('country').distinct()
     error=[]
-    # error=request.session['error']
     return render(request,'Yorking/form.html',{'error':error,'countries':country_team_obj})
 
 def form_check(request):

@@ -13,43 +13,48 @@
         <h1>Match ID!</h1>
         <div class="container">
           <form method="POST">
-            <!-- <h2>Country 1:</h2>
+            <h2>Country 1:</h2>
+
             <h3>BATSMAN:</h3>
             {% for i in batsmanone %}
             <div class="form-group">
-              <input type="checkbox" name="batsmanone" value={{i.player_name}}>
-              <label for="player">Player ID:{{i.player_id}}</label>
-              <label for="player">Player Name:{{i.player_name}}</label>
+              <label for="player">Player Name:{{i}}</label>
+              <input type="number" name="{{i.player_name}}" min="0" max="150">
               <span class="checkmark"></span>
             </div>
             {% endfor %}
 
             <h3>BALLER:</h3>
-            {% for i in baller1 %}
+            {% for i in ballerone %}
             <div class="form-group">
-              <input type="checkbox" name="baller1" value={{i.player_name}}>
-              <label for="player">Player ID:{{i.player_id}}</label>
-              <label for="player">Player Name:{{i.player_name}}</label>
+              <label for="player">Player Name:{{i}}</label>
+              <input type="number" name="{{i.player_name}}" min="0" max="9">
               <span class="checkmark"></span>
             </div>
             {% endfor %}
 
             <h3>WICKET KEEPER:</h3>
-            {% for i in wicketkeeper1 %}
+            {% for i in wicketkeeperone %}
             <div class="form-group">
-              <input type="checkbox" name="wicketkeeper1" value={{i.player_name}}>
-              <label for="player">Player ID:{{i.player_id}}</label>
-              <label for="player">Player Name:{{i.player_name}}</label>
+              <label for="player">Player Name:{{i}}</label>
+              <input type="number" name="{{i.player_name}}" min="0" max="9">
               <span class="checkmark"></span>
             </div>
             {% endfor %}
 
             <h3>ALL ROUNDER:</h3>
-            {% for i in allrounder1 %}
+            {% for i in allrounderone %}
             <div class="form-group">
-              <input type="checkbox" name="allrounder1" value={{i.player_name}}>
-              <label for="player">Player ID:{{i.player_id}}</label>
-              <label for="player">Player Name:{{i.player_name}}</label>
+              <label for="player">Player Name:{{i}}</label>
+              <p></p>
+              <label>Runs:</label>
+              <input type="number" name="{{i.player_name}}" min="0" max="150">
+              <p></p>
+              <label>Catches:</label>
+              <input type="number" name="{{i.player_name}}" min="0" max="150">
+              <p></p>
+              <label>Wickets:</label>
+              <input type="number" name="{{i.player_name}}" min="0" max="150">
               <span class="checkmark"></span>
             </div>
             {% endfor %}
@@ -58,48 +63,51 @@
             <h2>Country 2:</h2>
 
             <h3>BATSMAN:</h3>
-            {% for i in batsman2 %}
+            {% for i in batsmantwo %}
             <div class="form-group">
-              <input type="checkbox" name="batsman2" value={{i.player_name}}>
-              <label for="player">Player ID:{{i.player_id}}</label>
-              <label for="player">Player Name:{{i.player_name}}</label>
+              <label for="player">Player Name:{{i}}</label>
+              <input type="number" name="{{i.player_name}}" min="0" max="150">
               <span class="checkmark"></span>
             </div>
             {% endfor %}
 
-            <h3>BALLER:</h3>
-            {% for i in baller2 %}
+            {% for i in ballertwo %}
             <div class="form-group">
-              <input type="checkbox" name="baller2" value={{i.player_name}}>
-              <label for="player">Player ID:{{i.player_id}}</label>
-              <label for="player">Player Name:{{i.player_name}}</label>
+              <label for="player">Player Name:{{i}}</label>
+              <input type="number" name="{{i.player_name}}" min="0" max="9">
               <span class="checkmark"></span>
             </div>
             {% endfor %}
 
             <h3>WICKET KEEPER:</h3>
-            {% for i in wicketkeeper2 %}
+            {% for i in wicketkeepertwo %}
             <div class="form-group">
-              <input type="checkbox" name="wicketkeeper2" value={{i.player_name}}>
-              <label for="player">Player ID:{{i.player_id}}</label>
-              <label for="player">Player Name:{{i.player_name}}</label>
+              <label for="player">Player Name:{{i}}</label>
+              <input type="number" name="{{i.player_name}}" min="0" max="9">
               <span class="checkmark"></span>
             </div>
             {% endfor %}
 
-            <h3>ALL ROUNDER:</h3>
-            {% for i in allrounder2 %}
+            {% for i in allroundertwo %}
             <div class="form-group">
-              <input type="checkbox" name="allrounder2" value={{i.player_name}}>
-              <label for="player">Player ID:{{i.player_id}}</label>
-              <label for="player">Player Name:{{i.player_name}}</label>
+              <label for="player">Player Name:{{i}}</label>
+              <p></p>
+              <label>Runs:</label>
+              <input type="number" name="{{i.player_name}}" min="0" max="150">
+              <p></p>
+              <label>Catches:</label>
+              <input type="number" name="{{i.player_name}}" min="0" max="150">
+              <p></p>
+              <label>Wickets:</label>
+              <input type="number" name="{{i.player_name}}" min="0" max="150">
               <span class="checkmark"></span>
             </div>
             {% endfor %}
+
             <button type="submit" class="btn btn-warning margin-bottom button">Submit</button>
           </form>
         </div>
-      </div> -->
+      </div>
 
     </div>
     <!-- BOOTSTRAP AND JQUERY LINKS -->
