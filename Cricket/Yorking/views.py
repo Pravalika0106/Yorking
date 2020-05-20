@@ -5,13 +5,6 @@ from Yorking import form
 def index(request):
     return render(request,'Yorking/index.html')
 
-def selection(request):
-    if request.method=='POST':
-        coun1=request.POST.get('country1')
-        coun2=request.POST.get('country2')
-        countryteamobj=country_team.objects.filter(country__exact=coun1) | country_team.objects.filter(country__exact=coun2)
-        return render(request,'Yorking/team_selection.html',{'teamdata':countryteamobj})
-
 def edit_selection(request):
     match_user_obj=match_user.objects.filter(status__exact='Not occured')
     return render(request,'Yorking/edit_selection.html',{'matchcountries':match_user_obj})
@@ -105,17 +98,102 @@ def perfomance_update(request):
 #     return render(request,'Yorking/djangoform.html',{'form':form_obj})
 
 def modelform(request):
-    if request.method=='POST':
-        coun1=request.POST.get('country1')
-        coun2=request.POST.get('country2')
+    country_team_obj=country_team.objects.order_by('country').values('country').distinct()
+    return render(request,'Yorking/form.html',{'validation':[],'countries':country_team_obj})
+
+def form_check(request):
+    coun1=request.POST.get('country1')
+    coun2=request.POST.get('country2')
+    country_team_obj=country_team.objects.order_by('country').values('country').distinct()
+    validation=[]
+    if coun1 == coun2:
+        validation.append('Select two different countries')
+        return render(request,'Yorking/form.html',{'validation':validation,'countries':country_team_obj})
+    else:
         matchuserobj=match_user(country1=coun1,country2=coun2)
         matchuserobj.save()
         select=request.POST.get('select')
         submit=request.POST.get('submit')
+
+
         if select == '':
-            countryteamobj=country_team.objects.filter(country__exact=coun1) | country_team.objects.filter(country__exact=coun2)
-            return render(request,'Yorking/team_selection.html',{'teamdata':countryteamobj})
+            batsman_1=country_team.objects.filter(country__exact=coun1,category__exact='batsman').values()
+            request.session['batsman_1']=list(batsman_1)
+            baller_1=country_team.objects.filter(country__exact=coun1,category__exact='baller').values()
+            request.session['baller_1']=list(baller_1)
+            wicketkeeper_1=country_team.objects.filter(country__exact=coun1,category__exact='wicketkeeper').values()
+            request.session['wicketkeeper_1']=list(wicketkeeper_1)
+            allrounder_1=country_team.objects.filter(country__exact=coun1,category__exact='allrounder').values()
+            request.session['allrounder_1']=list(allrounder_1)
+            batsman_2=country_team.objects.filter(country__exact=coun2,category__exact='batsman').values()
+            request.session['batsman_2']=list(batsman_2)
+            baller_2=country_team.objects.filter(country__exact=coun2,category__exact='baller').values()
+            request.session['baller_2']=list(baller_2)
+            wicketkeeper_2=country_team.objects.filter(country__exact=coun2,category__exact='wicketkeeper').values()
+            request.session['wicketkeeper_1']=list(wicketkeeper_2)
+            allrounder_2=country_team.objects.filter(country__exact=coun2,category__exact='allrounder').values()
+            request.session['allrounder_2']=list(allrounder_2)
+            return render(request,'Yorking/team_selection.html',{'validation':[],'batsman_1':batsman_1,'baller_1':baller_1,'wicketkeeper_1':wicketkeeper_1,'allrounder_1':allrounder_1,'batsman_2':batsman_2,'baller_2':baller_2,'wicketkeeper_2':wicketkeeper_2,'allrounder_2':allrounder_2})
         elif submit == '':
-            return render(request,'Yorking/form.html')
+            return render(request,'Yorking/index.html')
+
+
+def selection(request):
+    if request.method=='POST':
+        coun1=request.POST.get('country1')
+        coun2=request.POST.get('country2')
+        batsman1=request.session['batsman_1']
+        baller1=request.session['baller_1']
+        wicketkeeper1=request.session['wicketkeeper_1']
+        allrounder1=request.session['allrounder_1']
+        batsman2=request.session['batsman_2']
+        baller2=request.session['baller_2']
+        wicketkeeper2=request.session['wicketkeeper_1']
+        allrounder2=request.session['allrounder_2']
+        return render(request,'Yorking/team_selection.html',{'validation':[],'batsman_1':batsman_1,'baller_1':baller_1,'wicketkeeper_1':wicketkeeper_1,'allrounder_1':allrounder_1,'batsman_2':batsman_2,'baller_2':baller_2,'wicketkeeper_2':wicketkeeper_2,'allrounder_2':allrounder_2})
+
+
+def check_constrains_1(request):
+    batsman1=request.session['batsman_1']
+    baller1=request.session['baller_1']
+    wicketkeeper1=request.session['wicketkeeper_1']
+    allrounder1=request.session['allrounder_1']
+    batsman2=request.session['batsman_2']
+    baller2=request.session['baller_2']
+    wicketkeeper2=request.session['wicketkeeper_1']
+    allrounder2=request.session['allrounder_2']
+
+    batsman_one=request.POST.getlist('batsman_1')
+    baller_one=request.POST.getlist('baller_1')
+    wicketkeeper_one=request.POST.getlist('wicketkeeper_1')
+    allrounder_one=request.POST.getlist('allrounder_1')
+    batsman_two=request.POST.getlist('batsman_2')
+    baller_two=request.POST.getlist('baller_2')
+    wicketkeeper_two=request.POST.getlist('wicketkeeper_2')
+    allrounder_two=request.POST.getlist('allrounder_2')
+    validation=[]
+    if len(batsman_one)<4:
+        validation.append("Min 4 batsman required in Country 1")
+    if len(baller_one)<3:
+        validation.append("Min 3 ballers required in Country 1")
+    if len(wicketkeeper_one)<1:
+        validation.append("Min 1 wicketkeeper required you got 0 in Country 1")
+    if len(allrounder_one)<1:
+        validation.append("Min 1 allrounder required you got 0 in Country 1")
+    if len(batsman_one)+len(baller_one)+len(wicketkeeper_one)+len(allrounder_one)<11:
+        validation.append("Min 11 players required in Country 1")
+    if len(batsman_two)<4:
+        validation.append("Min 4 batsman required in Country 2")
+    if len(baller_two)<3:
+        validation.append("Min 3 ballers required in Country 2")
+    if len(wicketkeeper_two)<1:
+        validation.append("Min 1 wicketkeeper required you got 0 in Country 2")
+    if len(allrounder_two)<1:
+        validation.append("Min 1 allrounder required you got 0 in Country 2")
+    if len(batsman_two)+len(baller_two)+len(wicketkeeper_two)+len(allrounder_two)<11:
+        validation.append("Min 11 players required in Country 2")
+    print(validation[0])
+    if validation != []:
+        return render(request,'Yorking/team_selection.html',{'validation':[],'batsman_1':batsman_1,'baller_1':baller_1,'wicketkeeper_1':wicketkeeper_1,'allrounder_1':allrounder_1,'batsman_2':batsman_2,'baller_2':baller_2,'wicketkeeper_2':wicketkeeper_2,'allrounder_2':allrounder_2})
     else:
-        return render(request,'Yorking/form.html')
+        return render(request,'Yorking/perfomance_update.html',{})

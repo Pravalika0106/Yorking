@@ -5,7 +5,9 @@ from Yorking import views
 urlpatterns = [
     path('',views.index),
     path('form/',views.modelform),
+    path('form_check/',views.form_check,name='form_check'),
     path('team_selection/',views.selection,name='selection'),
+    path('check_constrains_1' , views.check_constrains_1,name='constrains'),
     path('edit_selection/',views.edit_selection,name='edit'),
     path('playerperfomance/',views.playerperfomance,name='update'),
     path('check_constrains/',views.check_constrains,name='check'),
