@@ -17,8 +17,8 @@ fakegen = Faker()
 #             'Kuwait','Malaysia','Namibia','Nepal','Netherlands','Nigeria','Oman','Papua New Guinea','Scotland','Singapore',
 #             'Suriname','Tanzania','Thailand','Uganda','United Arab Emirates','USA','Vanuatu','Zambia']
 
-countries=['Australia','England','South Africa','West Indies','New Zealand','India','Pakistan','Sri Lanka','Zimbabwe',
-            'Bangladesh']
+countries=['Australia','England','South Africa','West Indies','New Zealand','India','Pakistan']
+# 'Sri Lanka','Zimbabwe','Bangladesh'
 
 categories=['batsman','baller','wicketkeeper','allrounder']
 def populate(N=5):
@@ -55,5 +55,5 @@ def populate(N=5):
 
 if __name__ == '__main__':
     print("Populating the databases...Please Wait")
-    populate(20)
+    populate(10)
     print('Populating Complete')
