@@ -4,7 +4,7 @@ from django.core.exceptions import ValidationError
 # Create your models here.
 
 def uuid_hex():
-	return uuid4.hex()
+	return uuid4().hex
 
 class country_team(models.Model):
 	player_id=models.CharField(primary_key=True,default=uuid_hex,max_length=100,editable=False)
