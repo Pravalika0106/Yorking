@@ -378,6 +378,8 @@ def perfomance_one_update(request):
 
 
 def perfomance_one_save(request):
+
+    match_id_created=request.session['match_id_created']
     batsman_one_selected=request.session['batsman_one_selected']
     baller_one_selected=request.session['baller_one_selected']
     wicketkeeper_one_selected=request.session['wicketkeeper_one_selected']
@@ -387,25 +389,27 @@ def perfomance_one_save(request):
     baller_two_selected=request.session['baller_two_selected']
     wicketkeeper_two_selected=request.session['wicketkeeper_two_selected']
     allrounder_two_selected=request.session['allrounder_two_selected']
+
+    match_user_obj=match_user.objects.get(match_id__exact=match_id_created)
     for i in batsman_one_selected:
         playerid=i['player_id']
         runs=request.POST.get(playerid)
         country_team_obj=country_team.objects.get(player_id__exact=playerid)
-        match_user_obj=match_user.objects.get(match_id__exact=matchid)
+        # match_user_obj=match_user.objects.get(match_id__exact=matchid)
         match_performance_obj=match_performance(match_id=match_user_obj,player_id=country_team_obj,runs=runs)
         match_performance_obj.save()
     for i in baller_one_selected:
         playerid=i['player_id']
         catches=request.POST.get(playerid)
         country_team_obj=country_team.objects.get(player_id__exact=playerid)
-        match_user_obj=match_user.objects.get(match_id__exact=matchid)
+        # match_user_obj=match_user.objects.get(match_id__exact=matchid)
         match_performance_obj=match_performance(match_id=match_user_obj,player_id=country_team_obj,catches=catches)
         match_performance_obj.save()
     for i in wicketkeeper_one_selected:
         playerid=i['player_id']
         wickets=request.POST.get(playerid)
         country_team_obj=country_team.objects.get(player_id__exact=playerid)
-        match_user_obj=match_user.objects.get(match_id__exact=matchid)
+        # match_user_obj=match_user.objects.get(match_id__exact=matchid)
         match_performance_obj=match_performance(match_id=match_user_obj,player_id=country_team_obj,wickets=wickets)
         match_performance_obj.save()
     for i in allrounder_one_selected:
@@ -414,7 +418,7 @@ def perfomance_one_save(request):
         catches=request.POST.get('catches'+playerid)
         wickets=request.POST.get('wickets'+playerid)
         country_team_obj=country_team.objects.get(player_id__exact=playerid)
-        match_user_obj=match_user.objects.get(match_id__exact=matchid)
+        # match_user_obj=match_user.objects.get(match_id__exact=matchid)
         match_performance_obj=match_performance(match_id=match_user_obj,player_id=country_team_obj,runs=runs,catches=catches,wickets=wickets)
         match_performance_obj.save()
 
@@ -422,21 +426,21 @@ def perfomance_one_save(request):
         playerid=i['player_id']
         runs=request.POST.get(playerid)
         country_team_obj=country_team.objects.get(player_id__exact=playerid)
-        match_user_obj=match_user.objects.get(match_id__exact=matchid)
+        # match_user_obj=match_user.objects.get(match_id__exact=matchid)
         match_performance_obj=match_performance(match_id=match_user_obj,player_id=country_team_obj,runs=runs)
         match_performance_obj.save()
     for i in baller_two_selected:
         playerid=i['player_id']
         catches=request.POST.get(playerid)
         country_team_obj=country_team.objects.get(player_id__exact=playerid)
-        match_user_obj=match_user.objects.get(match_id__exact=matchid)
+        # match_user_obj=match_user.objects.get(match_id__exact=matchid)
         match_performance_obj=match_performance(match_id=match_user_obj,player_id=country_team_obj,catches=catches)
         match_performance_obj.save()
     for i in wicketkeeper_two_selected:
         playerid=i['player_id']
         wickets=request.POST.get(playerid)
         match_user_obj=match_user.objects.get(match_id__exact=matchid)
-        country_team_obj=country_team.objects.get(player_id__exact=playerid)
+        # country_team_obj=country_team.objects.get(player_id__exact=playerid)
         match_performance_obj=match_performance(match_id=match_user_obj,player_id=country_team_obj,wickets=wickets)
         match_performance_obj.save()
     for i in allrounder_two_selected:
@@ -445,10 +449,10 @@ def perfomance_one_save(request):
         catches=request.POST.get('catches'+playerid)
         wickets=request.POST.get('wickets'+playerid)
         country_team_obj=country_team.objects.get(player_id__exact=playerid)
-        match_user_obj=match_user.objects.get(match_id__exact=matchid)
+        # match_user_obj=match_user.objects.get(match_id__exact=matchid)
         match_performance_obj=match_performance(match_id=match_user_obj,player_id=country_team_obj,runs=runs,catches=catches,wickets=wickets)
         match_performance_obj.save()
-    match_user_obj=match_user.objects.get(match_id__exact=match_id_created)
+    # match_user_obj=match_user.objects.get(match_id__exact=match_id_created)
     match_user_obj.status='Available'
     match_user_obj.save(['status'])
     return render(request,'Yorking/index.html')
