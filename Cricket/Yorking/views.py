@@ -204,9 +204,10 @@ def perfomance_update_save(request):
         match_user_obj=match_user.objects.get(match_id__exact=matchid)
         match_performance_obj=match_performance(match_id=match_user_obj,player_id=country_team_obj,runs=runs,catches=catches,wickets=wickets)
         match_performance_obj.save()
-    match_user_obj=match_user.objects.get(match_id__exact=matchid)
-    match_user_obj.status='Available'
-    match_user_obj.save(['status'])
+    # match_user_obj=match_user.objects.get(match_id__exact=matchid)
+    # match_user_obj.status='Available'
+    # match_user_obj.save()
+    match_user_obj.objects.filter(match_id__exact=matchid).update(status='Available')
     return render(request,'Yorking/index.html')
 
 
@@ -225,6 +226,9 @@ def modelform(request):
     country_team_obj=country_team.objects.order_by('country').values('country').distinct()
     return render(request,'Yorking/form.html',{'error':[],'countries':country_team_obj})
 
+def uuid_hex():
+	return uuid4().hex
+
 def form_check(request):
     coun1=request.POST.get('country1')
     coun2=request.POST.get('country2')
@@ -234,8 +238,8 @@ def form_check(request):
         country_team_obj=country_team.objects.order_by('country').values('country').distinct()
         return render(request,'Yorking/form.html',{'error':error,'countries':country_team_obj})
     else:
-        match_id_created=uuid4().hex
-
+        # match_id_created=uuid4().hex
+        match_id_created=uuid_hex
         #USED IN PERFOMANCE_ONE_SAVE
         request.session['match_id_created']=match_id_created
         matchuserobj=match_user(match_id=match_id_created,country1=coun1,country2=coun2)
@@ -380,6 +384,7 @@ def perfomance_one_update(request):
 def perfomance_one_save(request):
 
     match_id_created=request.session['match_id_created']
+
     batsman_one_selected=request.session['batsman_one_selected']
     baller_one_selected=request.session['baller_one_selected']
     wicketkeeper_one_selected=request.session['wicketkeeper_one_selected']
@@ -439,8 +444,8 @@ def perfomance_one_save(request):
     for i in wicketkeeper_two_selected:
         playerid=i['player_id']
         wickets=request.POST.get(playerid)
-        match_user_obj=match_user.objects.get(match_id__exact=matchid)
-        # country_team_obj=country_team.objects.get(player_id__exact=playerid)
+        # match_user_obj=match_user.objects.get(match_id__exact=matchid)
+        country_team_obj=country_team.objects.get(player_id__exact=playerid)
         match_performance_obj=match_performance(match_id=match_user_obj,player_id=country_team_obj,wickets=wickets)
         match_performance_obj.save()
     for i in allrounder_two_selected:
@@ -453,6 +458,7 @@ def perfomance_one_save(request):
         match_performance_obj=match_performance(match_id=match_user_obj,player_id=country_team_obj,runs=runs,catches=catches,wickets=wickets)
         match_performance_obj.save()
     # match_user_obj=match_user.objects.get(match_id__exact=match_id_created)
-    match_user_obj.status='Available'
-    match_user_obj.save(['status'])
-    return render(request,'Yorking/index.html')
+    # match_user_obj.status='Available'
+    # match_user_obj.save()
+    # return render(request,'Yorking/index.html')
+    match_user_obj.objects.filter(match_id__exact=match_id_created).update(status='Available')

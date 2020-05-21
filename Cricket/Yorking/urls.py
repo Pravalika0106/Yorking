@@ -8,9 +8,12 @@ urlpatterns = [
     path('form_check/',views.form_check,name='form_check'),
     path('team_selection/',views.selection,name='selection'),
     path('check_constrains_1' , views.check_constrains_1,name='constrains'),
+    path('perfomance_one_update/',views.perfomance_one_update),
+    path('perfomance_one_save/',views.perfomance_one_save,name='perfomance_one_save'),
+
     path('edit_selection/',views.edit_selection,name='edit'),
     path('playerperfomance/',views.playerperfomance,name='update'),
     path('check_constrains/',views.check_constrains,name='check'),
     path('perfomance_update/',views.perfomance_update,name='perfomance'),
-    path('perfomance_update_save/',views.perfomance_update_save,name='perfomance_save'),
+    path('perfomance_save/',views.perfomance_update_save,name='perfomance_save'),
 ]
