@@ -12,6 +12,7 @@ def edit_selection(request):
 def playerperfomance(request):
     if request.method=='POST':
         matchid=request.POST.get('matchid')
+        request.session['matchid']=matchid
         match_user_coun1=match_user.objects.filter(match_id__exact=matchid).values('country1')[0]['country1']
         match_user_coun2=match_user.objects.filter(match_id__exact=matchid).values('country2')[0]['country2']
         batsman1=country_team.objects.filter(country__exact=match_user_coun1,category__exact='batsman').values()
@@ -43,7 +44,9 @@ def check_constrains(request):
     baller2=request.session['baller2']
     wicketkeeper2=request.session['wicketkeeper1']
     allrounder2=request.session['allrounder2']
-
+    print(batsman1)
+    print(baller1)
+    print('above is batsman and baller 1')
     batsmanone=request.POST.getlist('batsman1')
     ballerone=request.POST.getlist('baller1')
     wicketkeeperone=request.POST.getlist('wicketkeeper1')
@@ -52,6 +55,8 @@ def check_constrains(request):
     ballertwo=request.POST.getlist('baller2')
     wicketkeepertwo=request.POST.getlist('wicketkeeper2')
     allroundertwo=request.POST.getlist('allrounder2')
+    print(batsmanone)
+    print(ballerone)
     validation=[]
     if len(batsmanone)<4:
         validation.append("Min 4 batsman required in Country 1")
@@ -73,23 +78,62 @@ def check_constrains(request):
         validation.append("Min 1 allrounder required you got 0 in Country 2")
     if len(batsmantwo)+len(ballertwo)+len(wicketkeepertwo)+len(allroundertwo)<11:
         validation.append("Min 11 players required in Country 2")
-    if validation != []:
-        return render(request,'Yorking/playerperfomance.html',{'validation':validation,'batsman1':batsman1,'baller1':baller1,'wicketkeeper1':wicketkeeper1,'allrounder1':allrounder1,'batsman2':batsman2,'baller2':baller2,'wicketkeeper2':wicketkeeper2,'allrounder2':allrounder2})
-    else:
-        return render(request,'Yorking/perfomance_update.html',{'batsmanone':batsmanone,'ballerone':ballerone,'wicketkeeperone':wicketkeeperone,'allrounderone':allrounderone,'batsmantwo':batsmantwo,'ballertwo':ballertwo,'wicketkeepertwo':wicketkeepertwo,'allroundertwo':allroundertwo})
+    # if validation != []:
+    #     return render(request,'Yorking/playerperfomance.html',{'validation':validation,'batsman1':batsman1,'baller1':baller1,'wicketkeeper1':wicketkeeper1,'allrounder1':allrounder1,'batsman2':batsman2,'baller2':baller2,'wicketkeeper2':wicketkeeper2,'allrounder2':allrounder2})
+    # else:
+    for i in batsmanone:
+        batsmanone_selected=country_team.objects.filter(player_id__exact=i).values('player_id','player_name')
+    for i in ballerone:
+        ballerone_selected=country_team.objects.filter(player_id__exact=i).values('player_id','player_name')
+    for i in wicketkeeperone:
+        wicketkeeperone_selected=country_team.objects.filter(player_id__exact=i).values('player_id','player_name')
+    for i in allrounderone:
+        allrounderone_selected=country_team.objects.filter(player_id__exact=i).values('player_id','player_name')
+    for i in batsmantwo:
+        batsmantwo_selected=country_team.objects.filter(player_id__exact=i).values('player_id','player_name')
+    for i in ballertwo:
+        ballertwo_selected=country_team.objects.filter(player_id__exact=i).values('player_id','player_name')
+    for i in wicketkeepertwo:
+        wicketkeepertwo_selected=country_team.objects.filter(player_id__exact=i).values('player_id','player_name')
+    for i in allroundertwo:
+        allroundertwo_selected=country_team.objects.filter(player_id__exact=i).values('player_id','player_name')
+
+    request.session['batsmanone_selected']=list(batsmanone_selected)
+    request.session['ballerone_selected']=list(ballerone_selected)
+    request.session['wicketkeeperone_selected']=list(wicketkeeperone_selected)
+    request.session['allrounderone_selected']=list(allrounderone_selected)
+
+    request.session['batsmantwo_selected']=list(batsmantwo_selected)
+    request.session['ballertwo_selected']=list(ballertwo_selected)
+    request.session['wicketkeepertwo_selected']=list(wicketkeepertwo_selected)
+    request.session['allroundertwo_selected']=list(allroundertwo_selected)
+    return render(request,'Yorking/perfomance_update.html',{'batsmanone_selected':batsmanone_selected,'ballerone_selected':ballerone_selected,'wicketkeeperone_selected':wicketkeeperone_selected,'allrounderone_selected':allrounderone_selected,'batsmantwo_selected':batsmantwo_selected,'ballertwo_selected':ballertwo_selected,'wicketkeepertwo_selected':wicketkeepertwo_selected,'allroundertwo_selected':allroundertwo_selected})
 
 
 def perfomance_update(request):
-    batsmanone=request.POST.getlist('batsman1')
-    ballerone=request.POST.getlist('baller1')
-    wicketkeeperone=request.POST.getlist('wicketkeeper1')
-    allrounderone=request.POST.getlist('allrounder1')
-    batsmantwo=request.POST.getlist('batsman2')
-    ballertwo=request.POST.getlist('baller2')
-    wicketkeepertwo=request.POST.getlist('wicketkeeper2')
-    allroundertwo=request.POST.getlist('allrounder2')
-    return render(request,'Yorking/perfomance_update.html',{'batsmanone':batsmanone,'ballerone':ballerone,'wicketkeeperone':wicketkeeperone,'allrounderone':allrounderone,'batsmantwo':batsmantwo,'ballertwo':ballertwo,'wicketkeepertwo':wicketkeepertwo,'allroundertwo':allroundertwo})
+    # batsmanone=request.POST.getlist('batsman1')
+    # ballerone=request.POST.getlist('baller1')
+    # wicketkeeperone=request.POST.getlist('wicketkeeper1')
+    # allrounderone=request.POST.getlist('allrounder1')
+    # batsmantwo=request.POST.getlist('batsman2')
+    # ballertwo=request.POST.getlist('baller2')
+    # wicketkeepertwo=request.POST.getlist('wicketkeeper2')
+    # allroundertwo=request.POST.getlist('allrounder2')
 
+    batsmanone_selected=request.session['batsmanone_selected']
+    ballerone_selected=request.session['ballerone_selected']
+    wicketkeeperone_selected=request.session['wicketkeeperone_selected']
+    allrounderone_selected=request.session['allrounderone_selected']
+
+    batsmantwo_selected=request.session['batsmantwo_selected']
+    ballertwo_selected=request.session['ballertwo_selected']
+    wicketkeepertwo_selected=request.session['wicketkeepertwo_selected']
+    allroundertwo_selected=request.session['allroundertwo_selected']
+    return render(request,'Yorking/perfomance_update.html',{'batsmanone_selected':batsmanone_selected,'ballerone_selected':ballerone_selected,'wicketkeeperone_selected':wicketkeeperone_selected,'allrounderone_selected':allrounderone_selected,'batsmantwo_selected':batsmantwo_selected,'ballertwo_selected':ballertwo_selected,'wicketkeepertwo_selected':wicketkeepertwo_selected,'allroundertwo_selected':allroundertwo_selected})
+
+def perfomance_update_save(request):
+    matchid=request.session['matchid']
+    return render(request,'Yorking/index.html')
 
 
 

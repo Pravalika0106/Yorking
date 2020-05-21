@@ -12,4 +12,5 @@ urlpatterns = [
     path('playerperfomance/',views.playerperfomance,name='update'),
     path('check_constrains/',views.check_constrains,name='check'),
     path('perfomance_update/',views.perfomance_update,name='perfomance'),
+    path('perfomance_update_save/',views.perfomance_update_save,name='perfomance_save'),
 ]
