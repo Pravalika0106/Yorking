@@ -12,6 +12,7 @@
 
       <div class="jumbotron">
         <h1>Select the Match!</h1>
+        <br><br>
         <div class="container">
           <form action="{% url 'Yorking:update' %}" method="POST">
             {% csrf_token %}
@@ -24,6 +25,7 @@
               <span class="checkmark"></span>
             </div>
             {% endfor %}
+            <br><br>
             <button type="submit" name='submit' class="btn btn-warning margin-bottom button">Submit</button>
           </form>
         </div>

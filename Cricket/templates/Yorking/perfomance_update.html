@@ -54,20 +54,20 @@
             <div class="form-group">
               <!-- <label for="player">Player ID:{{i.player_id}}</label> -->
               <label for="player" style="color:#ff9900">{{i.player_name}}</label>
-              <p></p>
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
               <label>Runs:</label>
               <input type="number" name="runs{{i.player_id}}" min="0" max="150">
-              <p></p>
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
               <label>Catches:</label>
               <input type="number" name="catches{{i.player_id}}" min="0" max="150">
-              <p></p>
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
               <label>Wickets:</label>
               <input type="number" name="wickets{{i.player_id}}" min="0" max="150">
               <span class="checkmark"></span>
             </div>
             {% endfor %}
 
-
+            <br>
             <h2>Country Two:</h2>
 
             <h3>Batsman:</h3>
@@ -109,19 +109,19 @@
               <!-- <label for="player">Player ID:{{i.player_id}}</label> -->
               <p></p>
               <label for="player" style="color:#ff9900">{{i.player_name}}</label>
-              <p></p>
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
               <label>Runs:</label>
               <input type="number" name="runs{{i.player_id}}" min="0" max="150">
-              <p></p>
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
               <label>Catches:</label>
               <input type="number" name="catches{{i.player_id}}" min="0" max="150">
-              <p></p>
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
               <label>Wickets:</label>
               <input type="number" name="wickets{{i.player_id}}" min="0" max="150">
               <span class="checkmark"></span>
             </div>
             {% endfor %}
-
+            <br><br>
             <button type="submit" class="btn btn-warning margin-bottom button">Submit</button>
           </form>
         </div>
