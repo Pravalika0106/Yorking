@@ -19,9 +19,9 @@
             <h3>Batsman:</h3>
             {% for i in batsmanone_selected %}
             <div class="form-group">
-              <label for="player">Player ID:{{i.player_id}}</label>
-              <p></p>
-              <label for="player">Player Name:{{i.player_name}}</label>
+              <!-- <label for="player">Player ID:{{i.player_id}}</label> -->
+              <label for="player" style="color:#ff9900">{{i.player_name}}</label>
+              <label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Runs</label>
               <input type="number" name="{{i.player_id}}" min="0" max="150">
               <span class="checkmark"></span>
             </div>
@@ -30,9 +30,9 @@
             <h3>Baller:</h3>
             {% for i in ballerone_selected %}
             <div class="form-group">
-              <label for="player">Player ID:{{i.player_id}}</label>
-              <p></p>
-              <label for="player">Player Name:{{i.player_name}}</label>
+              <!-- <label for="player">Player ID:{{i.player_id}}</label> -->
+              <label for="player" style="color:#ff9900">{{i.player_name}}</label>
+              <label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Catches</label>
               <input type="number" name="{{i.player_id}}" min="0" max="9">
               <span class="checkmark"></span>
             </div>
@@ -41,9 +41,9 @@
             <h3>Wicket Keeper:</h3>
             {% for i in wicketkeeperone_selected %}
             <div class="form-group">
-              <label for="player">Player ID:{{i.player_id}}</label>
-              <p></p>
-              <label for="player">Player Name:{{i.player_name}}</label>
+              <!-- <label for="player">Player ID:{{i.player_id}}</label> -->
+              <label for="player" style="color:#ff9900">{{i.player_name}}</label>
+              <label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Wickets</label>
               <input type="number" name="{{i.player_id}}" min="0" max="9">
               <span class="checkmark"></span>
             </div>
@@ -52,9 +52,8 @@
             <h3>All Rounder:</h3>
             {% for i in allrounderone_selected %}
             <div class="form-group">
-              <label for="player">Player ID:{{i.player_id}}</label>
-              <p></p>
-              <label for="player">Player Name:{{i.player_name}}</label>
+              <!-- <label for="player">Player ID:{{i.player_id}}</label> -->
+              <label for="player" style="color:#ff9900">{{i.player_name}}</label>
               <p></p>
               <label>Runs:</label>
               <input type="number" name="runs{{i.player_id}}" min="0" max="150">
@@ -74,9 +73,9 @@
             <h3>Batsman:</h3>
             {% for i in batsmantwo_selected %}
             <div class="form-group">
-              <label for="player">Player ID:{{i.player_id}}</label>
-              <p></p>
-              <label for="player">Player Name:{{i.player_name}}</label>
+              <!-- <label for="player">Player ID:{{i.player_id}}</label> -->
+              <label for="player" style="color:#ff9900">{{i.player_name}}</label>
+              <label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Runs</label>
               <input type="number" name="{{i.player_id}}" min="0" max="150">
               <span class="checkmark"></span>
             </div>
@@ -85,9 +84,9 @@
             <h3>Baller:</h3>
             {% for i in ballertwo_selected %}
             <div class="form-group">
-              <label for="player">Player ID:{{i.player_id}}</label>
-              <p></p>
-              <label for="player">Player Name:{{i.player_name}}</label>
+              <!-- <label for="player">Player ID:{{i.player_id}}</label> -->
+              <label for="player" style="color:#ff9900">{{i.player_name}}</label>
+              <label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Catches</label>
               <input type="number" name="{{i.player_id}}" min="0" max="9">
               <span class="checkmark"></span>
             </div>
@@ -96,9 +95,9 @@
             <h3>Wicket Keeper:</h3>
             {% for i in wicketkeepertwo_selected %}
             <div class="form-group">
-              <label for="player">Player ID:{{i.player_id}}</label>
-              <p></p>
-              <label for="player">Player Name:{{i.player_name}}</label>
+              <!-- <label for="player">Player ID:{{i.player_id}}</label> -->
+              <label for="player" style="color:#ff9900">{{i.player_name}}</label>
+              <label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Wickets</label>
               <input type="number" name="{{i.player_id}}" min="0" max="9">
               <span class="checkmark"></span>
             </div>
@@ -107,9 +106,9 @@
             <h3>All Rounder:</h3>
             {% for i in allroundertwo_selected %}
             <div class="form-group">
-              <label for="player">Player ID:{{i.player_id}}</label>
+              <!-- <label for="player">Player ID:{{i.player_id}}</label> -->
               <p></p>
-              <label for="player">Player Name:{{i.player_name}}</label>
+              <label for="player" style="color:#ff9900">{{i.player_name}}</label>
               <p></p>
               <label>Runs:</label>
               <input type="number" name="runs{{i.player_id}}" min="0" max="150">

@@ -18,9 +18,9 @@
             {% for i in matchcountries %}
             <div class="form-group">
               <input type="radio" name="matchid" value={{i.match_id}}>
-              <label for="player">Match Id:{{i.match_id}}</label><p></p>
-              <label for="player">Country One:{{i.country1}}</label><p></p>
-              <label for="player">Country Two:{{i.country2}}</label><p></p>
+              <label for="player" style="color:#ff9900; font-size:20px">{{i.country1}} vs</label>
+              <label for="player" style="color:#ff9900; font-size:20px"> {{i.country2}}</label><p></p>
+              <!-- <label for="player">Match Id:{{i.match_id}}</label> -->
               <span class="checkmark"></span>
             </div>
             {% endfor %}
