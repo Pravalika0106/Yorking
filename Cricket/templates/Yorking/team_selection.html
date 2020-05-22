@@ -10,7 +10,7 @@
   <body>
     <div class="container">
       <div class="jumbotron">
-        <h1>Match ID!</h1>
+        <h1>Select the Team!</h1>
         <div class="container">
           <form action="{% url 'Yorking:constrains' %}" method="POST">
             {% csrf_token%}
@@ -20,12 +20,13 @@
             {% endfor %}
             {% endif %}
 
-            <h2>Country 1:</h2>
+            <h2 style="color:#ff9900">Country 1:</h2>
             <h3>BATSMAN:</h3>
             {% for i in batsman_1 %}
             <div class="form-group">
               <input type="checkbox" name="batsman_1" value={{i.player_id}}>
               <label for="player">Player ID:{{i.player_id}}</label>
+              <p></p>
               <label for="player">Player Name:{{i.player_name}}</label>
               <span class="checkmark"></span>
             </div>
@@ -36,6 +37,7 @@
             <div class="form-group">
               <input type="checkbox" name="baller_1" value={{i.player_id}}>
               <label for="player">Player ID:{{i.player_id}}</label>
+              <p></p>
               <label for="player">Player Name:{{i.player_name}}</label>
               <span class="checkmark"></span>
             </div>
@@ -46,6 +48,7 @@
             <div class="form-group">
               <input type="checkbox" name="wicketkeeper_1" value={{i.player_id}}>
               <label for="player">Player ID:{{i.player_id}}</label>
+              <p></p>
               <label for="player">Player Name:{{i.player_name}}</label>
               <span class="checkmark"></span>
             </div>
@@ -56,19 +59,21 @@
             <div class="form-group">
               <input type="checkbox" name="allrounder_1" value={{i.player_id}}>
               <label for="player">Player ID:{{i.player_id}}</label>
+              <p></p>
               <label for="player">Player Name:{{i.player_name}}</label>
               <span class="checkmark"></span>
             </div>
             {% endfor %}
 
 
-            <h2>Country 2:</h2>
+            <h2 style="color:#ff9900">Country 2:</h2>
 
             <h3>BATSMAN:</h3>
             {% for i in batsman_2 %}
             <div class="form-group">
               <input type="checkbox" name="batsman_2" value={{i.player_id}}>
               <label for="player">Player ID:{{i.player_id}}</label>
+              <p></p>
               <label for="player">Player Name:{{i.player_name}}</label>
               <span class="checkmark"></span>
             </div>
@@ -79,6 +84,7 @@
             <div class="form-group">
               <input type="checkbox" name="baller_2" value={{i.player_id}}>
               <label for="player">Player ID:{{i.player_id}}</label>
+              <p></p>
               <label for="player">Player Name:{{i.player_name}}</label>
               <span class="checkmark"></span>
             </div>
@@ -89,6 +95,7 @@
             <div class="form-group">
               <input type="checkbox" name="wicketkeeper_2" value={{i.player_id}}>
               <label for="player">Player ID:{{i.player_id}}</label>
+              <p></p>
               <label for="player">Player Name:{{i.player_name}}</label>
               <span class="checkmark"></span>
             </div>
@@ -99,6 +106,7 @@
             <div class="form-group">
               <input type="checkbox" name="allrounder_2" value={{i.player_id}}>
               <label for="player">Player ID:{{i.player_id}}</label>
+              <p></p>
               <label for="player">Player Name:{{i.player_name}}</label>
               <span class="checkmark"></span>
             </div>

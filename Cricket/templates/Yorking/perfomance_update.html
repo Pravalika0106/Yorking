@@ -10,46 +10,50 @@
   <body>
     <div class="container">
       <div class="jumbotron">
-        <h1>Match ID!</h1>
+        <h1>Enter the Performances!</h1>
         <div class="container">
           <form action="{% url 'Yorking:perfomance_save' %}" method="POST">
             {% csrf_token %}
-            <h2>Country 1:</h2>
+            <h2>Country One:</h2>
 
-            <h3>BATSMAN:</h3>
+            <h3>Batsman:</h3>
             {% for i in batsmanone_selected %}
             <div class="form-group">
               <label for="player">Player ID:{{i.player_id}}</label>
+              <p></p>
               <label for="player">Player Name:{{i.player_name}}</label>
               <input type="number" name="{{i.player_id}}" min="0" max="150">
               <span class="checkmark"></span>
             </div>
             {% endfor %}
 
-            <h3>BALLER:</h3>
+            <h3>Baller:</h3>
             {% for i in ballerone_selected %}
             <div class="form-group">
               <label for="player">Player ID:{{i.player_id}}</label>
+              <p></p>
               <label for="player">Player Name:{{i.player_name}}</label>
               <input type="number" name="{{i.player_id}}" min="0" max="9">
               <span class="checkmark"></span>
             </div>
             {% endfor %}
 
-            <h3>WICKET KEEPER:</h3>
+            <h3>Wicket Keeper:</h3>
             {% for i in wicketkeeperone_selected %}
             <div class="form-group">
               <label for="player">Player ID:{{i.player_id}}</label>
+              <p></p>
               <label for="player">Player Name:{{i.player_name}}</label>
               <input type="number" name="{{i.player_id}}" min="0" max="9">
               <span class="checkmark"></span>
             </div>
             {% endfor %}
 
-            <h3>ALL ROUNDER:</h3>
+            <h3>All Rounder:</h3>
             {% for i in allrounderone_selected %}
             <div class="form-group">
               <label for="player">Player ID:{{i.player_id}}</label>
+              <p></p>
               <label for="player">Player Name:{{i.player_name}}</label>
               <p></p>
               <label>Runs:</label>
@@ -65,42 +69,46 @@
             {% endfor %}
 
 
-            <h2>Country 2:</h2>
+            <h2>Country Two:</h2>
 
-            <h3>BATSMAN:</h3>
+            <h3>Batsman:</h3>
             {% for i in batsmantwo_selected %}
             <div class="form-group">
               <label for="player">Player ID:{{i.player_id}}</label>
+              <p></p>
               <label for="player">Player Name:{{i.player_name}}</label>
               <input type="number" name="{{i.player_id}}" min="0" max="150">
               <span class="checkmark"></span>
             </div>
             {% endfor %}
 
-            <h3>BALLER:</h3>
+            <h3>Baller:</h3>
             {% for i in ballertwo_selected %}
             <div class="form-group">
               <label for="player">Player ID:{{i.player_id}}</label>
+              <p></p>
               <label for="player">Player Name:{{i.player_name}}</label>
               <input type="number" name="{{i.player_id}}" min="0" max="9">
               <span class="checkmark"></span>
             </div>
             {% endfor %}
 
-            <h3>WICKET KEEPER:</h3>
+            <h3>Wicket Keeper:</h3>
             {% for i in wicketkeepertwo_selected %}
             <div class="form-group">
               <label for="player">Player ID:{{i.player_id}}</label>
+              <p></p>
               <label for="player">Player Name:{{i.player_name}}</label>
               <input type="number" name="{{i.player_id}}" min="0" max="9">
               <span class="checkmark"></span>
             </div>
             {% endfor %}
 
-            <h3>ALL ROUNDER:</h3>
+            <h3>All Rounder:</h3>
             {% for i in allroundertwo_selected %}
             <div class="form-group">
               <label for="player">Player ID:{{i.player_id}}</label>
+              <p></p>
               <label for="player">Player Name:{{i.player_name}}</label>
               <p></p>
               <label>Runs:</label>

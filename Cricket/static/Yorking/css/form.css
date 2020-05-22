@@ -9,7 +9,7 @@ img
 /* Adjusting the space between each entry */
 .margin-bottom
 {
-  margin-bottom:45px;
+  margin-bottom:48px;
 }
 
 /* Positioning the animated image */
@@ -38,13 +38,13 @@ img
 /* LABEL */
 label
 {
-  font-size: 20px;
+  font-size: 30px;
 }
 
 /* SUBMIT BUTTON */
 .button
 {
-  padding: 15px 20px;
+  padding: 12px 15px;
   text-align: center;
   font-size: 18px;
   border-radius: 12px;
@@ -54,7 +54,7 @@ label
 .textbox
 {
   height: 50px;
-  font-size: 20px;
+  font-size: 40px;
 }
 
 #submit{}

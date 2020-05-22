@@ -69,7 +69,7 @@ def check_constrains(request):
         x=country_team.objects.filter(player_id__exact=i).values('points')
         sum1+=x[0]['points']
     for i in ballerone:
-        x=countryteam.objects.filter(player_id__exact=i).values('points')
+        x=country_team.objects.filter(player_id__exact=i).values('points')
         sum1+=x[0]['points']
     for i in wicketkeeperone:
         x=country_team.objects.filter(player_id__exact=i).values('points')
@@ -82,7 +82,7 @@ def check_constrains(request):
         x=country_team.objects.filter(player_id__exact=i).values('points')
         sum2+=x[0]['points']
     for i in ballertwo:
-        x=countryteam.objects.filter(player_id__exact=i).values('points')
+        x=country_team.objects.filter(player_id__exact=i).values('points')
         sum2+=x[0]['points']
     for i in wicketkeepertwo:
         x=country_team.objects.filter(player_id__exact=i).values('points')
@@ -90,35 +90,34 @@ def check_constrains(request):
     for i in allroundertwo:
         x=country_team.objects.filter(player_id__exact=i).values('points')
         sum2+=x[0]['points']
-    print(sum1)
-    print(sum2)
+
     #VALIDATING THE CHECKED PLAYERS:
     validation=[]
     if sum1>100:
         validation.apppend("Total points for Country 1 should be less than 100")
     if len(batsmanone)<1:
-        validation.append("Min 4 batsman required in Country 1")
+        validation.append("Min 1 batsman required in Country 1")
     if len(ballerone)<1:
-        validation.append("Min 3 ballers required in Country 1")
+        validation.append("Min 1 ballers required in Country 1")
     if len(wicketkeeperone)<1:
         validation.append("Min 1 wicketkeeper required you got 0 in Country 1")
     if len(allrounderone)<1:
         validation.append("Min 1 allrounder required you got 0 in Country 1")
     if len(batsmanone)+len(ballerone)+len(wicketkeeperone)+len(allrounderone)<4:
-        validation.append("Min 11 players required in Country 1")
+        validation.append("Min 4 players required in Country 1")
 
     if sum2>100:
         validation.apppend("Total points for Country 2 should be less than 100")
     if len(batsmantwo)<1:
-        validation.append("Min 4 batsman required in Country 2")
+        validation.append("Min 1 batsman required in Country 2")
     if len(ballertwo)<1:
-        validation.append("Min 3 ballers required in Country 2")
+        validation.append("Min 1 ballers required in Country 2")
     if len(wicketkeepertwo)<1:
         validation.append("Min 1 wicketkeeper required you got 0 in Country 2")
     if len(allroundertwo)<1:
         validation.append("Min 1 allrounder required you got 0 in Country 2")
     if len(batsmantwo)+len(ballertwo)+len(wicketkeepertwo)+len(allroundertwo)<4:
-        validation.append("Min 11 players required in Country 2")
+        validation.append("Min 4 players required in Country 2")
     if validation != []:
         return render(request,'Yorking/playerperfomance.html',{'validation':validation,'batsman1':batsman1,'baller1':baller1,'wicketkeeper1':wicketkeeper1,'allrounder1':allrounder1,'batsman2':batsman2,'baller2':baller2,'wicketkeeper2':wicketkeeper2,'allrounder2':allrounder2})
     else:
@@ -367,35 +366,34 @@ def check_constrains_1(request):
     for i in allrounder_two:
         x=country_team.objects.filter(player_id__exact=i).values('points')
         sum2+=x[0]['points']
-    print(sum1)
-    print(sum2)
+
     #VALIDATING THE SELECTED PLAYERS
     validation=[]
     if sum1>100:
         validation.apppend("Total points for Country 1 should be less than 100")
     if len(batsman_one)<1:
-        validation.append("Min 4 batsman required in Country 1")
+        validation.append("Min 1 batsman required in Country 1")
     if len(baller_one)<1:
-        validation.append("Min 3 ballers required in Country 1")
+        validation.append("Min 1 ballers required in Country 1")
     if len(wicketkeeper_one)<1:
         validation.append("Min 1 wicketkeeper required you got 0 in Country 1")
     if len(allrounder_one)<1:
         validation.append("Min 1 allrounder required you got 0 in Country 1")
     if len(batsman_one)+len(baller_one)+len(wicketkeeper_one)+len(allrounder_one)<4:
-        validation.append("Min 11 players required in Country 1")
+        validation.append("Min 4 players required in Country 1")
 
     if sum2>100:
         validation.append('Total points for Country 2 should be less than 100')
     if len(batsman_two)<1:
-        validation.append("Min 4 batsman required in Country 2")
+        validation.append("Min 1 batsman required in Country 2")
     if len(baller_two)<1:
-        validation.append("Min 3 ballers required in Country 2")
+        validation.append("Min 1 ballers required in Country 2")
     if len(wicketkeeper_two)<1:
         validation.append("Min 1 wicketkeeper required you got 0 in Country 2")
     if len(allrounder_two)<1:
         validation.append("Min 1 allrounder required you got 0 in Country 2")
     if len(batsman_two)+len(baller_two)+len(wicketkeeper_two)+len(allrounder_two)<4:
-        validation.append("Min 11 players required in Country 2")
+        validation.append("Min 4 players required in Country 2")
     if validation != []:
         return render(request,'Yorking/team_selection.html',{'validation':validation,'batsman_1':batsman_1,'baller_1':baller_1,'wicketkeeper_1':wicketkeeper_1,'allrounder_1':allrounder_1,'batsman_2':batsman_2,'baller_2':baller_2,'wicketkeeper_2':wicketkeeper_2,'allrounder_2':allrounder_2})
     else:
