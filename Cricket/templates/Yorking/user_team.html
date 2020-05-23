@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>User team</title>
+</head>
+<body>
+	<h1>Your selected players</h1>
+	<h2>Choose Captain</h2>
+	<form action="{% url 'Yorking:dashboard' %}" method="POST">
+{% csrf_token %}
+		<h3>Batsmen</h3>
+			{% for i in batsmen %}
+				<input type="radio" name="captain" value="{{i.player_id}}"> Name : {{i.name}}
+				<br>
+			{% endfor %}
+		<h3>Bowlers</h3>
+			{% for i in bowler %}
+				<input type="radio" name="captain" value="{{i.player_id}}">Name : {{i.name}}<br>
+				<!-- <p>Points : {{i.points}}</p> -->
+			{% endfor %}
+		<h3>All rounders</h3>
+			{% for i in all_rounder %}
+				<input type="radio" name="captain" value="{{i.player_id}}">Name : {{i.name}}<br>
+				<!-- <p>Points : {{i.points}}</p> -->
+			{% endfor %}
+		<h3>Wicket Keepers</h3>
+			{% for i in wicket_keeper %}
+				<input type="radio" name="captain" value="{{i.player_id}}">Name : {{i.name}}<br>
+				<!-- <p>Points : {{i.points}}</p> -->
+			{% endfor %}
+			<br>
+			<input type="submit" name="submit">
+			</form>
+
+</body>
+</html>

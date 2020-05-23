@@ -16,4 +16,18 @@ urlpatterns = [
     path('check_constrains/',views.check_constrains,name='check'),
     path('perfomance_update/',views.perfomance_update,name='perfomance'),
     path('perfomance_save/',views.perfomance_update_save,name='perfomance_save'),
+
+    path('top_performers/',views.top_performers,name='top_performers'),
+
+
+    #Integrating Swethas Code:
+    path('team/',views.select_team,name="select_team"),
+    path('players/',views.players_list,name="playerss"),
+    path('validations/',views.user_team_validation,name='user_team_validation'),
+    path('user_team/',views.user_team,name="user_team"),
+    path('dashboard/',views.dashboard,name="dashboard"),
+	path('get_points/',views.get_points,name="get_points"),
+
+
+
 ]
