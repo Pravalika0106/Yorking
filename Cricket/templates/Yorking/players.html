@@ -10,13 +10,13 @@
 		<div class="container">
 
 			<div class="jumbotron">
-				<div>
-					<h1  style="color:blue">Remaining Points: <div id="remaining_points" style="display:inline;"></div></h1>
-				</div>
+
+
+				<h2 style="display:inline" >Remaining Points:</h2>
+				<h2 id="remaining_points" style="display:inline; color:#ff9900" >{{points}}</h2>
 				<br>
 				<form action="{% url 'Yorking:user_team_validation' %}" method="POST">
-				<!-- <form method="POST"> -->
-					<!-- <input type="checkbox" name="batsmen" id="149" value="149"> -->
+
 					{% csrf_token %}
 					{% if error_msg %}
 					{% for i in error_msg %}
@@ -25,56 +25,67 @@
 					{% endif %}
 				<h2>Batsmen</h2>
 					{% for i in batsmen %}
-						<input type="checkbox" name="batsmen" id="{{i.pid}}" value="{{i.player_id}}" onclick="load_points({{i.player_id}})" >
-						<label for="{{i.pid}}">{{i.player_name}}{{i.points}}</label>
+						<input type="checkbox" name="batsmen" id="{{i.points}}" value="{{i.player_id}} " onclick="ppoints(this,{{i.points}})" >
+						<label style="color:#ff9900">{{i.player_name}}&nbsp;&nbsp;&nbsp;&nbsp;{{i.points}}</label>
 						<br>
 					{% endfor %}
+
+					<h3 id =counting_batsmen></h3>
+
 				<h2>Wicket Keepers</h2>
 					{% for i in wicket_keeper %}
-					<input type="checkbox" name="wicketkeeper" id="{{i.pid}}" value="{{i.player_id}}" onclick="load_points({{i.player_id}})" >
-					<label for="{{i.pid}}">{{i.player_name}}{{i.points}}</label>
+					<input type="checkbox" name="wicket_keeper" id="{{i.points}}" value="{{i.player_id}}"  onclick="ppoints(this,{{i.points}})" >
+					<label style="color:#ff9900">{{i.player_name}}&nbsp;&nbsp;&nbsp;&nbsp;{{i.points}}</label>
 					<br>
 					{% endfor %}
 
 				<h2>All Rounders</h2>
 					{% for i in all_rounder %}
-					<input type="checkbox" name="allrounder" id="{{i.pid}}" value="{{i.player_id}}" onclick="load_points({{i.player_id}})" >
-					<label for="{{i.pid}}">{{i.player_name}}{{i.points}}</label>
+					<input type="checkbox" name="all_rounder" id="{{i.points}}" value="{{i.player_id}}"  onclick="ppoints(this,{{i.points}})">
+					<label style="color:#ff9900">{{i.player_name}}&nbsp;&nbsp;&nbsp;&nbsp;{{i.points}}</label>
 					<br>
 					{% endfor %}
 				<h2>Bowlers</h2>
 					{% for i in bowler %}
-					<input type="checkbox" name="baller" id="{{i.pid}}" value="{{i.player_id}}" onclick="load_points({{i.player_id}})" >
-					<label for="{{i.pid}}">{{i.player_name}}{{i.points}}</label>
+					<input type="checkbox" name="bowler" id="{{i.points}}" value="{{i.player_id}}"  onclick="ppoints(this,{{i.points}})">
+					<label style="color:#ff9900">{{i.player_name}}&nbsp;&nbsp;&nbsp;&nbsp;{{i.points}}</label>
 					<br>
 					{% endfor %}
 					<br>
-				<button type="submit" name='submit' class="btn btn-warning ">Submit</button>
+				<button type="submit" name='submit' class="btn btn-warning " >Submit</button>
 				<br>
 				</form>
 			</div>
 
 		</div>
 
-		<script >
-			$(document).ready( function() {
-				document.getElementById('remaining_points').innerHTML = {{points}};
-			} )
-			// var updated_points;
-			function load_points(id){
-				console.log("In function");
-				// $.ajaxSetup({ cache: false });
-				var updated_points = document.getElementById('remaining_points').value;
-				// alert(updated_points);
-				console.log(document.getElementById(id).checked);
-				if(document.getElementById(id).checked){
-				$('#remaining_points').load("{% url 'Yorking:get_points' %}",{'id':id,'points':updated_points,'checked':1});
-				}
+
+		<script type="text/javascript">
+
+		function ppoints(obj,pp){
+				if($(obj).is(":checked")){
+					$(document).ready( function() {
+						document.getElementById('remaining_points').innerHTML = document.getElementById('remaining_points').innerHTML-pp;
+					} )
+			  }
 				else{
-				$('#remaining_points').load("{% url 'Yorking:get_points' %}",{'id':id,'points':updated_points,'checked':0});
+					$(document).ready( function() {
+						document.getElementById('remaining_points').innerHTML = document.getElementById('remaining_points').innerHTML+pp;
+					} )
+				}
 			}
-		}
+
+			// check(){
+			// 	var batsman_count=$('input[name="batsmen[]"]:checked').length;
+			// 	if batsman_count<4
+			// 	{
+			// 		$('#counting_batsmen').text('You only Selected'+batsman_count);
+			// 	}
+			// })
 		</script>
+
+
+
 		<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>

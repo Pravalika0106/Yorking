@@ -1,5 +1,5 @@
 from django.shortcuts import render,redirect
-from Yorking.models import match_user,country_team,match_performance,user_team,choosen_players
+from Yorking.models import match_user,country_team,match_performance,user_team,choosen_players,user
 from Yorking import form
 from uuid import uuid4
 from django.http import HttpResponse,HttpResponseRedirect
@@ -545,7 +545,7 @@ def players_list(request):
         # POSTED FROM SELECT TEAM
         matchid=request.POST.get("matchid")
         request.session['matchid']= matchid
-        print("printing in playerlist",matchid)
+        # print("printing in playerlist",matchid)
         coun1=match_user.objects.filter(match_id=matchid).values('country1')[0]['country1']
         coun2 = match_user.objects.filter(match_id=matchid).values('country2')[0]['country2']
         request.session['batsmen'] = list(country_team.objects.filter(country__in=[coun1,coun2],category='batsman').values())
@@ -563,9 +563,9 @@ def user_team_validation(request):
     selected_wicket_keeper= request.POST.getlist("wicket_keeper")
     error_msg=[]
     selected_points=0
-    print("selected barsman here",selected_batsmen)
-    print(len(selected_batsmen))
+
     selected_players = selected_batsmen + selected_bowler+selected_all_rounder + selected_wicket_keeper
+    request.session['selected_players']=selected_players
     for i in selected_batsmen:
         selected_points+=country_team.objects.filter(player_id=i)[0].points
     for i in selected_bowler:
@@ -575,15 +575,15 @@ def user_team_validation(request):
     for i in selected_wicket_keeper:
         selected_points+=country_team.objects.filter(player_id=i)[0].points
     if len(selected_batsmen)<1:
-        error_msg.append("select minimum 4 batsmen")
+        error_msg.append("select minimum 1 batsmen")
     if len(selected_bowler) < 1:
-        error_msg.append("select minimum 3 bowlers")
+        error_msg.append("select minimum 1 bowlers")
     if len(selected_wicket_keeper) < 1:
         error_msg.append("select minimum 1 wicket keeper")
     if len(selected_all_rounder) < 1:
         error_msg.append("select minimum 1 all rounder")
     if len(selected_players) < 4:
-        error_msg.append("select 11 players")
+        error_msg.append("select 4 players")
     if selected_points>200:
         error_msg.append("Select players with points less than 100")
     if error_msg != []:
@@ -598,37 +598,27 @@ def user_team_validation(request):
             wicket_keeper_selected=country_team.objects.filter(player_id__exact=i).values('player_id','player_name')
         for i in selected_all_rounder:
             all_rounder_selected=country_team.objects.filter(player_id__exact=i).values('player_id','player_name')
-        return render(request,'Yorking/user_team.html',{'batsmen':batsmen_selected,'bowler':bowler_selected,'all_rounder':all_rounder_selected,'wicket_keeper':wicket_keeper_selected})
+        return render(request,'Yorking/user_team.html',{'batsmen':batsman_selected,'bowler':bowler_selected,'all_rounder':all_rounder_selected,'wicket_keeper':wicket_keeper_selected})
 
 
 def dashboard(request):
-    # captain_id = request.POST["captain"]
-    # match_id_obj = match_user.objects.get(match_id = request.session['matchid'])
-    # user_id_obj=user.objects.get(user_id__exact=''''''')
-    # print(user_id_obj)
-    # user_team_obj = user_team(user_id =user_id_obj ,match_id = match_id_obj,captain = captain_id)
-    # user_team_obj.save()
-    # user_match = user_team.objects.get(match_id = request.session['matchid'],user_id = 3)
-    # for i in request.session['selected_players']:
-    #     pid = country_team.objects.get(player_id = i)
-    #     cp = choosen_players(user_match = user_match,player_id= pid )
-    #     cp.save()
+    captain_id = request.POST["captain"]
+    match_user_obj = match_user.objects.get(match_id = request.session['matchid'])
+    user_ids=user.objects.all().values('user_id')
+    # total=len(user_ids)
+    #CHOOSE USER ID HERE:
+
+    user_obj=user.objects.get(user_id__exact=user_ids[4]['user_id'])
+    user_team_obj = user_team(user_id =user_obj ,match_id = match_user_obj,captain = captain_id)
+    user_team_obj.save()
+    user_match = user_team.objects.get(match_id = request.session['matchid'],user_id = user_obj)
+    for i in request.session['selected_players']:
+        country_team_obj= country_team.objects.get(player_id = i)
+        choosen_players_obj = choosen_players(user_match = user_match,player_id= country_team_obj )
+        choosen_players_obj.save()
     return HttpResponse("<h1> Congrats :) </h1>")
 
 
 
-@csrf_exempt
-def get_points(request):
-	p_id = request.POST["id"]
-	global points
-	print("pid",p_id)
-	print("points",points)
-	p_points = country_team.objects.filter(player_id=p_id)
-	if(int(request.POST["checked"])):
-		new_points = int(points) - int(p_points[0].points)
-		points = new_points
-	else:
-		new_points = int(points) + int(p_points[0].points)
-		points = new_points
-
-	return HttpResponse(new_points)
+def test(request):
+    return render(request,'Yorking/test.html')

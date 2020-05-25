@@ -45,3 +45,5 @@ class user_team(models.Model):
 class choosen_players(models.Model):
 	user_match=models.ForeignKey('user_team',on_delete=models.CASCADE)
 	player_id=models.ForeignKey('country_team',on_delete=models.CASCADE)
+	class Meta:
+		unique_together=(('user_match','player_id'),)
