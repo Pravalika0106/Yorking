@@ -17,21 +17,25 @@
 					{% for i in batsmen %}
 						<input type="radio" name="captain" value="{{i.player_id}}">
 						<label>{{i.player_name}}</label>
+						<br>
 					{% endfor %}
 				<h3>Bowlers</h3>
 					{% for i in bowler %}
 					<input type="radio" name="captain" value="{{i.player_id}}">
 					<label>{{i.player_name}}</label>
+					<br>
 					{% endfor %}
 				<h3>All rounders</h3>
 					{% for i in all_rounder %}
 					<input type="radio" name="captain" value="{{i.player_id}}">
 					<label>{{i.player_name}}</label>
+					<br>
 					{% endfor %}
 				<h3>Wicket Keepers</h3>
 					{% for i in wicket_keeper %}
 					<input type="radio" name="captain" value="{{i.player_id}}">
 					<label>{{i.player_name}}</label>
+					<br>
 					{% endfor %}
 					<br>
 					<input type="submit" name="submit">

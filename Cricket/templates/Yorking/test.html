@@ -8,11 +8,11 @@
   </head>
   <body>
 
-    <form  method="post"" >
-      {%csrf_token%}
+    <form  method="post">
+      {% csrf_token %}
 
       <div class="count">
-        <input type="checkbox" id="vehicle1" name="vehicle1" value="Bike" onclick="clickedd">
+        <input type="checkbox" id="vehicle1" name="vehicle1" value="Bike" onclick="clickedd(this)">
         <label for="vehicle1"> I have a bike</label><br>
         <!-- <input type="checkbox" id="vehicle1" name="vehicle1" value="Bike">
         <label for="vehicle1"> I have a bike</label><br>
@@ -22,9 +22,9 @@
       </div>
 
 
-      <input type="checkbox" id="vehicle2" name="vehicle2" value="Car">
+      <input type="checkbox" id="vehicle2" name="vehicle2" value="Car" onclick="clickedd(this)>
       <label for="vehicle2"> I have a car</label><br>
-      <input type="checkbox" id="vehicle2" name="vehicle2" value="Car">
+      <input type="checkbox" id="vehicle2" name="vehicle2" value="Car" onclick="clickedd(this)>
       <label for="vehicle2"> I have a car</label><br>
 
       <input type="checkbox" id="vehicle3" name="vehicle3" value="Boat">
@@ -36,18 +36,17 @@
 
 
     <script>
-
-      function clickedd()
+      function clickedd(obj)
       {
-      if $('#vehicle1').is(':checked')
+      if ($(obj).is(":checked"))
+      var batsman_count=$("input:checkbox:checked").length;
       {
-        $('document').ready(function()
+        $("document").ready(function()
         {
-          document.getElementById('vehicle1').innerHTML="Hello";
+          document.getElementById("counting").innerHTML=batsman_count;
         }
       )}
     }
-
     </script>
   </body>
 </html>

@@ -23,7 +23,7 @@ countries=['Australia','England','South Africa','West Indies','New Zealand','Ind
 categories=['batsman','baller','wicketkeeper','allrounder']
 def populate(N=5):
     for entry in range(N):
-        player_id=uuid4()
+        player_id=uuid4().hex
         player_name=fakegen.name_male()
         category=random.choice(categories)
         points=random.randrange(1,13)

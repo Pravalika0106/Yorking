@@ -530,16 +530,13 @@ def top_performers(request):
 
 
 def select_team(request):
-    global points
-    points =100
-    match_user_obj=match_user.objects.filter(status__exact='Not occured').values()
+    match_user_obj=match_user.objects.filter(status__exact='Available').values()
     if len(match_user_obj)==0:
         error="No Matches Available! Come back Later Some time"
     else:
         error=False
     return render(request,'Yorking/team.html',{'error':error,'matches':match_user_obj})
 
-points =100
 def players_list(request):
     if request.method=="POST":
         # POSTED FROM SELECT TEAM
@@ -548,12 +545,13 @@ def players_list(request):
         # print("printing in playerlist",matchid)
         coun1=match_user.objects.filter(match_id=matchid).values('country1')[0]['country1']
         coun2 = match_user.objects.filter(match_id=matchid).values('country2')[0]['country2']
+
         request.session['batsmen'] = list(country_team.objects.filter(country__in=[coun1,coun2],category='batsman').values())
         request.session['all_rounder'] = list(country_team.objects.filter(country__in=[coun1,coun2],category='allrounder').values())
         request.session['bowler'] = list(country_team.objects.filter(country__in=[coun1,coun2],category='baller').values())
         request.session['wicket_keeper']= list(country_team.objects.filter(country__in=[coun1,coun2],category='wicketkeeper').values())
-        # print(request.session['batsmen'])
-        return  render(request,'Yorking/players.html',{'points':points,'error_msg':[],'batsmen':request.session['batsmen'],'bowler':request.session['bowler'],'all_rounder':request.session['all_rounder'],'wicket_keeper':request.session['wicket_keeper']})
+        # print('all batsman here)',request.session['batsmen'])
+        return  render(request,'Yorking/players.html',{'points':200,'error_msg':[],'batsmen':request.session['batsmen'],'bowler':request.session['bowler'],'all_rounder':request.session['all_rounder'],'wicket_keeper':request.session['wicket_keeper']})
     return render(request,'Yorking/players.html',{'points':points})
 
 def user_team_validation(request):
@@ -566,14 +564,23 @@ def user_team_validation(request):
 
     selected_players = selected_batsmen + selected_bowler+selected_all_rounder + selected_wicket_keeper
     request.session['selected_players']=selected_players
-    for i in selected_batsmen:
-        selected_points+=country_team.objects.filter(player_id=i)[0].points
+
+
+    print("Selected batsman: ", selected_batsmen)
+    # for i in selected_batsmen:
+    #     print(i)
+    #     print(country_team.objects.filter(player_id__exact=i))
+    #     selected_points+=country_team.objects.filter(player_id__exact=i)[0].points
     for i in selected_bowler:
-        selected_points+=country_team.objects.filter(player_id=i)[0].points
+        selected_points+=country_team.objects.filter(player_id__exact=i)[0].points
     for i in selected_all_rounder:
-        selected_points+=country_team.objects.filter(player_id=i)[0].points
+        selected_points+=country_team.objects.filter(player_id__exact=i)[0].points
     for i in selected_wicket_keeper:
-        selected_points+=country_team.objects.filter(player_id=i)[0].points
+        selected_points+=country_team.objects.filter(player_id__exact=i)[0].points
+
+    for i in selected_batsmen:
+        print(country_team.objects.filter(player_id__exact=i).values('points'))
+
     if len(selected_batsmen)<1:
         error_msg.append("select minimum 1 batsmen")
     if len(selected_bowler) < 1:
@@ -590,14 +597,21 @@ def user_team_validation(request):
         return  render(request,'Yorking/players.html',{'points':200,'error_msg':error_msg,'batsmen':request.session['batsmen'],'bowler':request.session['bowler'],'all_rounder':request.session['all_rounder'],'wicket_keeper':request.session['wicket_keeper']})
 
     else:
+
+        batsman_selected=[]
+        bowler_selected=[]
+        all_rounder_selected=[]
+        wicket_keeper_selected=[]
         for i in selected_batsmen:
-            batsman_selected=country_team.objects.filter(player_id__exact=i).values('player_id','player_name')
+            batsman_selected.append(country_team.objects.filter(player_id__exact=i).values('player_id','player_name'))
         for i in selected_bowler:
-            bowler_selected=country_team.objects.filter(player_id__exact=i).values('player_id','player_name')
+            bowler_selected.append(country_team.objects.filter(player_id__exact=i).values('player_id','player_name')[0])
         for i in selected_wicket_keeper:
-            wicket_keeper_selected=country_team.objects.filter(player_id__exact=i).values('player_id','player_name')
+            wicket_keeper_selected.append(country_team.objects.filter(player_id__exact=i).values('player_id','player_name')[0])
         for i in selected_all_rounder:
-            all_rounder_selected=country_team.objects.filter(player_id__exact=i).values('player_id','player_name')
+            all_rounder_selected.append(country_team.objects.filter(player_id__exact=i).values('player_id','player_name')[0])
+
+        print('else for loop',bowler_selected)
         return render(request,'Yorking/user_team.html',{'batsmen':batsman_selected,'bowler':bowler_selected,'all_rounder':all_rounder_selected,'wicket_keeper':wicket_keeper_selected})
 
 
@@ -605,7 +619,7 @@ def dashboard(request):
     captain_id = request.POST["captain"]
     match_user_obj = match_user.objects.get(match_id = request.session['matchid'])
     user_ids=user.objects.all().values('user_id')
-    # total=len(user_ids)
+
     #CHOOSE USER ID HERE:
 
     user_obj=user.objects.get(user_id__exact=user_ids[4]['user_id'])

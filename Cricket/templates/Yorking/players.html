@@ -12,9 +12,11 @@
 			<div class="jumbotron">
 
 
-				<h2 style="display:inline" >Remaining Points:</h2>
+				<h3 style="display:inline" >Remaining Points:</h3>
 				<h2 id="remaining_points" style="display:inline; color:#ff9900" >{{points}}</h2>
-				<br>
+				<br><br>
+				<h3 style="display:inline"  >No of players Selected:</h3>
+				<h3 id ="counting_players" style="display:inline; color:#ff9900"></h3>
 				<form action="{% url 'Yorking:user_team_validation' %}" method="POST">
 
 					{% csrf_token %}
@@ -24,34 +26,54 @@
 					{% endfor  %}
 					{% endif %}
 				<h2>Batsmen</h2>
+
+				<h3 style="display:inline"  >No of Batsman Selected:</h3>
+				<h3 id ="counting_batsman" style="display:inline; color:#ff9900"></h3>
+					<br><br>
 					{% for i in batsmen %}
-						<input type="checkbox" name="batsmen" id="{{i.points}}" value="{{i.player_id}} " onclick="ppoints(this,{{i.points}})" >
+						<input type="checkbox" name="batsmen" id="{{i.points}}" value="{{i.player_id}} " onclick= "ppoints(this,{{i.points}}); check(this); batsman_check(this)" >
 						<label style="color:#ff9900">{{i.player_name}}&nbsp;&nbsp;&nbsp;&nbsp;{{i.points}}</label>
 						<br>
 					{% endfor %}
 
-					<h3 id =counting_batsmen></h3>
+
+
+					<h2>Bowlers</h2>
+
+					<h3 style="display:inline" >No of Bowlers Selected:</h3>
+					<h3 id ="counting_baller" style="display:inline; color:#ff9900"></h3>
+						<br><br>
+						{% for i in bowler %}
+						<input type="checkbox" name="bowler" id="{{i.points}}" value="{{i.player_id}}"  onclick="ppoints(this,{{i.points}}); check(this); baller_check(this)" >
+						<label style="color:#ff9900">{{i.player_name}}&nbsp;&nbsp;&nbsp;&nbsp;{{i.points}}</label>
+						<br>
+						{% endfor %}
+
 
 				<h2>Wicket Keepers</h2>
+
+				<h3 style="display:inline"  >No of Wicket Keepers Selected:</h3>
+				<h3 id ="counting_wicketkeeper" style="display:inline; color:#ff9900"></h3>
+					<br><br>
 					{% for i in wicket_keeper %}
-					<input type="checkbox" name="wicket_keeper" id="{{i.points}}" value="{{i.player_id}}"  onclick="ppoints(this,{{i.points}})" >
+					<input type="checkbox" name="wicket_keeper" id="{{i.points}}" value="{{i.player_id}}"  onclick="ppoints(this,{{i.points}}); check(this); wicketkeeper_check(this)" >
 					<label style="color:#ff9900">{{i.player_name}}&nbsp;&nbsp;&nbsp;&nbsp;{{i.points}}</label>
 					<br>
 					{% endfor %}
 
+
 				<h2>All Rounders</h2>
+
+				<h3 style="display:inline"  >No of All Rounders Selected:</h3>
+				<h3 id ="counting_allrounder" style="display:inline; color:#ff9900"></h3>
+					<br><br>
 					{% for i in all_rounder %}
-					<input type="checkbox" name="all_rounder" id="{{i.points}}" value="{{i.player_id}}"  onclick="ppoints(this,{{i.points}})">
+					<input type="checkbox" name="all_rounder" id="{{i.points}}" value="{{i.player_id}}"  onclick="ppoints(this,{{i.points}}); check(this); allrounder_check(this) ">
 					<label style="color:#ff9900">{{i.player_name}}&nbsp;&nbsp;&nbsp;&nbsp;{{i.points}}</label>
 					<br>
 					{% endfor %}
-				<h2>Bowlers</h2>
-					{% for i in bowler %}
-					<input type="checkbox" name="bowler" id="{{i.points}}" value="{{i.player_id}}"  onclick="ppoints(this,{{i.points}})">
-					<label style="color:#ff9900">{{i.player_name}}&nbsp;&nbsp;&nbsp;&nbsp;{{i.points}}</label>
-					<br>
-					{% endfor %}
-					<br>
+
+					<br><br><br><br>
 				<button type="submit" name='submit' class="btn btn-warning " >Submit</button>
 				<br>
 				</form>
@@ -65,23 +87,121 @@
 		function ppoints(obj,pp){
 				if($(obj).is(":checked")){
 					$(document).ready( function() {
-						document.getElementById('remaining_points').innerHTML = document.getElementById('remaining_points').innerHTML-pp;
+						document.getElementById('remaining_points').innerHTML = parseInt(document.getElementById('remaining_points').innerHTML)-pp;
 					} )
 			  }
 				else{
 					$(document).ready( function() {
-						document.getElementById('remaining_points').innerHTML = document.getElementById('remaining_points').innerHTML+pp;
+						document.getElementById('remaining_points').innerHTML = parseInt(document.getElementById('remaining_points').innerHTML)+pp;
 					} )
 				}
 			}
 
-			// check(){
-			// 	var batsman_count=$('input[name="batsmen[]"]:checked').length;
-			// 	if batsman_count<4
-			// 	{
-			// 		$('#counting_batsmen').text('You only Selected'+batsman_count);
-			// 	}
-			// })
+			function check(obj)
+			{
+				if ($(obj).is(":checked"))
+				{
+					$(document).ready(function()
+					{
+						var player_count=$("input:checkbox:checked").length;
+						document.getElementById("counting_players").innerHTML=player_count;
+					}
+					)}
+					else
+					{
+						$(document).ready(function()
+						{
+						var player_count=$("input:checkbox:checked").length;
+						document.getElementById("counting_players").innerHTML=player_count;
+					}
+				)}
+				}
+
+
+				function batsman_check(obj)
+				{
+				if ($(obj).is(":checked"))
+				{
+				$(document).ready(function()
+				{
+				var batsman_count=$('input[name="batsmen"]:checked').length;
+				document.getElementById("counting_batsman").innerHTML=batsman_count;
+				}
+				)}
+				else
+				{
+				$(document).ready(function()
+				{
+					var batsman_count=$('input[name="batsmen"]:checked').length;
+					document.getElementById("counting_batsman").innerHTML=batsman_count;
+				}
+				)}
+				}
+
+
+				function baller_check(obj)
+				{
+				if ($(obj).is(":checked"))
+				{
+				$(document).ready(function()
+				{
+				var baller_count=$('input[name="bowler"]:checked').length;
+				document.getElementById("counting_baller").innerHTML=baller_count;
+				}
+				)}
+				else
+				{
+				$(document).ready(function()
+				{
+				var baller_count=$('input[name="bowler"]:checked').length;
+				document.getElementById("counting_baller").innerHTML=baller_count;
+				}
+				)}
+				}
+
+
+
+				function allrounder_check(obj)
+				{
+				if ($(obj).is(":checked"))
+				{
+				$(document).ready(function()
+				{
+				var allrounder_count=$('input[name="all_rounder"]:checked').length;
+				document.getElementById("counting_allrounder").innerHTML=allrounder_count;
+				}
+				)}
+				else
+				{
+				$(document).ready(function()
+				{
+					var allrounder_count=$('input[name="all_rounder"]:checked').length;
+					document.getElementById("counting_allrounder").innerHTML=allrounder_count;
+				}
+				)}
+				}
+
+				function wicketkeeper_check(obj)
+				{
+				if ($(obj).is(":checked"))
+				{
+				$(document).ready(function()
+				{
+				var wicketkeeper_count=$('input[name="wicket_keeper"]:checked').length;
+				document.getElementById("counting_wicketkeeper").innerHTML=wicketkeeper_count;
+				}
+				)}
+				else
+				{
+				$(document).ready(function()
+				{
+					var wicketkeeper_count=$('input[name="wicket_keeper"]:checked').length;
+					document.getElementById("counting_wicketkeeper").innerHTML=wicketkeeper_count;
+				}
+				)}
+				}
+
+
 		</script>
 
 
