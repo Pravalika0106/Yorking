@@ -31,8 +31,8 @@ def populate(N=5):
 
         user_id=uuid4()
         user_name=fakegen.name()
-        phn_num=fakegen.msisdn()
-        email=fakegen.email()
+        # phn_num=fakegen.msisdn()
+        # email=fakegen.email()
         password=user_name+'1234'
 
         match_id=uuid4()
@@ -41,9 +41,9 @@ def populate(N=5):
         catches=random.randrange(0,9)
         wickets=random.randrange(0,9)
 
-        count_team=country_team.objects.get_or_create(player_id=player_id,player_name=player_name,category=category,points=points,country=country)[0]
+        # count_team=country_team.objects.get_or_create(player_id=player_id,player_name=player_name,category=category,points=points,country=country)[0]
 
-        # user_obj=user.objects.get_or_create(user_id=user_id,user_name=user_name,phn_num=phn_num,email=email,password=password)[0]
+        user_obj=user.objects.get_or_create(user_id=user_id,user_name=user_name,password=password)[0]
 
         # match_user_obj=match_user.objects.get_or_create(match_id=match_id)[0]
 

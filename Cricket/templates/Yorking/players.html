@@ -31,7 +31,7 @@
 				<h3 id ="counting_batsman" style="display:inline; color:#ff9900"></h3>
 					<br><br>
 					{% for i in batsmen %}
-						<input type="checkbox" name="batsmen" id="{{i.points}}" value="{{i.player_id}} " onclick= "ppoints(this,{{i.points}}); check(this); batsman_check(this)" >
+						<input type="checkbox" name="batsmen" value="{{i.player_id}}" onclick= "ppoints(this,{{i.points}}); check(this); batsman_check(this)" >
 						<label style="color:#ff9900">{{i.player_name}}&nbsp;&nbsp;&nbsp;&nbsp;{{i.points}}</label>
 						<br>
 					{% endfor %}
@@ -44,7 +44,7 @@
 					<h3 id ="counting_baller" style="display:inline; color:#ff9900"></h3>
 						<br><br>
 						{% for i in bowler %}
-						<input type="checkbox" name="bowler" id="{{i.points}}" value="{{i.player_id}}"  onclick="ppoints(this,{{i.points}}); check(this); baller_check(this)" >
+						<input type="checkbox" name="bowler" value="{{i.player_id}}"  onclick="ppoints(this,{{i.points}}); check(this); baller_check(this)" >
 						<label style="color:#ff9900">{{i.player_name}}&nbsp;&nbsp;&nbsp;&nbsp;{{i.points}}</label>
 						<br>
 						{% endfor %}
@@ -56,7 +56,7 @@
 				<h3 id ="counting_wicketkeeper" style="display:inline; color:#ff9900"></h3>
 					<br><br>
 					{% for i in wicket_keeper %}
-					<input type="checkbox" name="wicket_keeper" id="{{i.points}}" value="{{i.player_id}}"  onclick="ppoints(this,{{i.points}}); check(this); wicketkeeper_check(this)" >
+					<input type="checkbox" name="wicket_keeper" value="{{i.player_id}}"  onclick="ppoints(this,{{i.points}}); check(this); wicketkeeper_check(this)" >
 					<label style="color:#ff9900">{{i.player_name}}&nbsp;&nbsp;&nbsp;&nbsp;{{i.points}}</label>
 					<br>
 					{% endfor %}
@@ -68,7 +68,7 @@
 				<h3 id ="counting_allrounder" style="display:inline; color:#ff9900"></h3>
 					<br><br>
 					{% for i in all_rounder %}
-					<input type="checkbox" name="all_rounder" id="{{i.points}}" value="{{i.player_id}}"  onclick="ppoints(this,{{i.points}}); check(this); allrounder_check(this) ">
+					<input type="checkbox" name="all_rounder" value="{{i.player_id}}"  onclick="ppoints(this,{{i.points}}); check(this); allrounder_check(this) ">
 					<label style="color:#ff9900">{{i.player_name}}&nbsp;&nbsp;&nbsp;&nbsp;{{i.points}}</label>
 					<br>
 					{% endfor %}

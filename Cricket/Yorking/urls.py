@@ -26,8 +26,13 @@ urlpatterns = [
     path('validations/',views.user_team_validation,name='user_team_validation'),
     path('user_team/',views.user_team,name="user_team"),
     path('dashboard/',views.dashboard,name="dashboard"),
+
+
 	path('test/',views.test),
 
+    #Integrating Abhigna's code:
+    path('user_point_calculation/',views.user_point_calculation),
+    path('leaderboard_match/',views.leaderboard_match),
 
-
+    path('User_Auth/',views.User_Auth),
 ]

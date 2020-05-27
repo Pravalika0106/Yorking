@@ -14,11 +14,9 @@ class country_team(models.Model):
 	country=models.CharField(max_length=200)
 
 class user(models.Model):
-	user_id=models.CharField(primary_key=True,default=uuid_hex,max_length=100,editable=False)
-	user_name=models.CharField(max_length=200)
-	phn_num=models.CharField(max_length=13)
-	email=models.EmailField(max_length=200)
+	user_name=models.CharField(primary_key=True,max_length=100,editable=False)
 	password=models.CharField(max_length=200)
+	user_mail=models.EmailField(max_length=100)
 
 class match_user(models.Model):
     match_id=models.CharField(primary_key=True,default=uuid_hex,max_length=100,editable=False)
@@ -39,6 +37,7 @@ class user_team(models.Model):
 	user_id=models.ForeignKey('user',on_delete=models.CASCADE)
 	match_id=models.ForeignKey('match_user',on_delete=models.CASCADE)
 	captain=models.CharField(max_length=200,default='Not Decided')
+	stars=models.IntegerField(default=0)
 	class Meta:
 		unique_together=(('user_id','match_id'),)
 
