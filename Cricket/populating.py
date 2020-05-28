@@ -18,8 +18,9 @@ fakegen = Faker()
 #             'Suriname','Tanzania','Thailand','Uganda','United Arab Emirates','USA','Vanuatu','Zambia']
 
 countries=['Australia','England','South Africa','West Indies','New Zealand','India','Pakistan']
-# 'Sri Lanka','Zimbabwe','Bangladesh'
-
+'Sri Lanka','Zimbabwe','Bangladesh'
+# countries=['India']
+# categories=['allrounder']
 categories=['batsman','baller','wicketkeeper','allrounder']
 def populate(N=5):
     for entry in range(N):
@@ -41,9 +42,9 @@ def populate(N=5):
         catches=random.randrange(0,9)
         wickets=random.randrange(0,9)
 
-        # count_team=country_team.objects.get_or_create(player_id=player_id,player_name=player_name,category=category,points=points,country=country)[0]
+        count_team=country_team.objects.get_or_create(player_id=player_id,player_name=player_name,category=category,points=points,country=country)[0]
 
-        user_obj=user.objects.get_or_create(user_id=user_id,user_name=user_name,password=password)[0]
+        # user_obj=user.objects.get_or_create(user_id=user_id,password=password)[0]
 
         # match_user_obj=match_user.objects.get_or_create(match_id=match_id)[0]
 
@@ -55,5 +56,5 @@ def populate(N=5):
 
 if __name__ == '__main__':
     print("Populating the databases...Please Wait")
-    populate(10)
+    populate(5)
     print('Populating Complete')

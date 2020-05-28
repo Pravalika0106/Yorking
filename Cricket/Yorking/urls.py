@@ -3,8 +3,8 @@ from django.urls import path,include
 from Yorking import views
 
 urlpatterns = [
-    path('',views.index),
-    path('form/',views.modelform,name='index'),
+    path('',views.index,name='index_page'),
+    path('form/',views.modelform),
     path('form_check/',views.form_check,name='form_check'),
     path('team_selection/',views.selection,name='selection'),
     path('check_constrains_1' , views.check_constrains_1,name='constrains'),
@@ -31,8 +31,8 @@ urlpatterns = [
 	path('test/',views.test),
 
     #Integrating Abhigna's code:
-    path('user_point_calculation/',views.user_point_calculation),
-    path('leaderboard_match/',views.leaderboard_match),
+    # path('user_point_calculation/',views.user_point_calculation),
+    path('leaderboard_match/',views.leaderboard_match,name='leaderboard_match'),
     path('leaderboard/',views.leaderboard,name='leaderboard_display'),
 
 

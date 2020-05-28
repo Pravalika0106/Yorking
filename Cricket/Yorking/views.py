@@ -549,19 +549,22 @@ def top_performers(request):
 
 def select_team(request):
     #USER ID FROM USER AUTH PAGE
-    # userid=request.session['user_id']#######
-    userid=user.objects.all().values()[0]['user_id']
+    # userid=request.session['user_id']###############################################################
+    userid=user.objects.all().values()[1]['user_id']
     print('user_id',userid)
     #RETRIVING THE MATCHES WHICH ARE PLAYED BY THE USER
     user_obj=user.objects.get(user_id=userid)
     user_team_obj=user_team.objects.filter(user_id=user_obj).values('match_id')
+    print('user played matches',user_team_obj)
     matches=[]
     #RETRIVING THE MATCHES WHO'S STATUS=AVAILABLE
     match_user_obj=match_user.objects.filter(status='Available').values()
+    print('AVAILABLE',match_user_obj)
     #GETTING THE MATCHES NOT PLAYED BY THE USER
     for i in match_user_obj:
-        if i['match_id'] not in user_team_obj:
-            matches.append(i)
+        for j in user_team_obj:
+            if i['match_id'] != j['match_id']:
+                matches.append(i)
     if len(matches)==0:
         error="No New Matches Available! Come back Later Some time"
     else:
@@ -647,8 +650,8 @@ def dashboard(request):
     match_user_obj = match_user.objects.get(match_id = request.session['matchid'])
 
     #USER ID FROM USER AUTH PAGE
-    # userid=request.session['user_id']#####################
-    userid=user.objects.all().values()[0]['user_id']
+    # userid=request.session['user_id']##############################################################
+    userid=user.objects.all().values()[1]['user_id']
     user_obj=user.objects.get(user_id__exact=userid)
     user_team_obj = user_team(user_id =user_obj ,match_id = match_user_obj,captain = captain_id)
     user_team_obj.save()
@@ -657,26 +660,14 @@ def dashboard(request):
         country_team_obj= country_team.objects.get(player_id = i)
         choosen_players_obj = choosen_players(user_match = user_match,player_id= country_team_obj )
         choosen_players_obj.save()
-        user_point_calculation()
-    return render(request,'Yorking/index.html')
 
 
 
-def test(request):
-    return render(request,'Yorking/test.html')
-
-
-#INTEGRATING ABHIGNA'S CODE HERE:
-# Match=match_user,User=user,UserTeam=user_team,MatchPerformance=match_performance,CountryTeam country_team
-
-
-def user_point_calculation():
-    #MATCH ID POSTED FROM SELECT TEAM
-    matchid=request.POST['match_id']
+    matchid=request.session['matchid']
     match_user_obj=match_user.objects.get(match_id=matchid)
 
-    user_obj=user.objects.get(user_id=request.session['user_id'])
-
+    # user_obj=user.objects.get(user_id=request.session['user_id'])####################################3
+    user_obj=user.objects.get(user_id=user.objects.all().values()[1]['user_id'])
     user_team_obj=user_team.objects.get(user_id=user_obj,match_id=match_user_obj)
     user_team_cap=user_team.objects.filter(user_id=user_obj,match_id=match_user_obj).values()[0]['captain']
     choosen_players_obj=choosen_players.objects.filter(user_match=user_team_obj).values()
@@ -690,32 +681,75 @@ def user_point_calculation():
                 catches=j['catches']
                 wickets=j['wickets']
                 sum=sum+runs+(catches*20)+(wickets*20)
+    print('Stars',sum)
     user_team_obj=user_team.objects.filter(user_id=user_obj,match_id=match_user_obj).update(stars=sum)
-    user_team_obj.save()
     return render(request,'Yorking/index.html')
 
-def leaderboard_match(request):
 
+
+def test(request):
+    return redirect(index)
+
+
+#INTEGRATING ABHIGNA'S CODE HERE:
+# Match=match_user,User=user,UserTeam=user_team,MatchPerformance=match_performance,CountryTeam country_team
+
+#INSTEAD OF CALCULATING IT SEPERATELY IT IS DONE CONTINUOUSLY AFTER THE PLAYERS ARE SELECTED
+# def user_point_calculation():
+#     #MATCH ID POSTED FROM SELECT TEAM
+#     matchid=request.POST['matchid']
+#     match_user_obj=match_user.objects.get(match_id=matchid)
+#
+#     user_obj=user.objects.get(user_id=request.session['user_id'])
+#
+#     user_team_obj=user_team.objects.get(user_id=user_obj,match_id=match_user_obj)
+#     user_team_cap=user_team.objects.filter(user_id=user_obj,match_id=match_user_obj).values()[0]['captain']
+#     choosen_players_obj=choosen_players.objects.filter(user_match=user_team_obj).values()
+#
+#     match_performance_obj=match_performance.objects.filter(match_id=match_user_obj).values()
+#     sum=0
+#     for i in choosen_players_obj:
+#         for j in match_performance_obj:
+#             if i['player_id_id']==j['player_id_id']:
+#                 runs=j['runs']
+#                 catches=j['catches']
+#                 wickets=j['wickets']
+#                 sum=sum+runs+(catches*20)+(wickets*20)
+#     user_team_obj=user_team.objects.filter(user_id=user_obj,match_id=match_user_obj).update(stars=sum)
+#     return redirect('leaderboard_match')
+
+def leaderboard_match(request):
+    print('hello',request.session['user_id'])
     #USER ID FORM USER AUTH PAGE
-    user_obj=user.objects.get(user_id__exact=request.session['user_id'])
-    user_matches_played=user_team.objects.filter(user_id=user_obj).values()
+    # user_obj=user.objects.get(user_id__exact=request.session['user_id'])##############################################
+    user_obj=user.objects.get(user_id__exact=user.objects.all().values()[1]['user_id'])
+    user_matches_played=user_team.objects.filter(user_id_id=user_obj).values()
     # match_user_obj=match_user.objects.all().values()
     print('user matches',user_matches_played)
     # print('match user obj',match_user_obj)
 
     matches_leaderboard=[]
     for i in user_matches_played:
-        matches_leaderboard.append(match_user.objects.filter(match_id=i['match_id_id']))###[0]
+        matches_leaderboard.append(match_user.objects.filter(match_id=i['match_id_id']).values()[0])
     print(matches_leaderboard)
     return render(request,'Yorking/leaderboard_match.html',{'matches_leaderboard':matches_leaderboard})###Send the data hereee
 
 
 def leaderboard(request):
     if request.method=='POST':
-        matchid=request.get('matchid')
+        matchid=request.POST.get('matchid')
         match_user_obj=match_user.objects.get(match_id__exact=matchid)#display a page to the user and ask him to choose
-        user_team_obj=user_team.objects.filter(match_id=match_user_obj).values().order_by('stars').values()
-        return render(request,'Yorking/leaderboard.html',{'leaderboard_stars':user_team_obj})
+        print('match user obj',match_user.objects.all().values())
+        print('user matches',user_team.objects.filter(match_id=match_user_obj).values())
+        user_team_obj=user_team.objects.filter(match_id=match_user_obj).values().order_by('stars')
+        print('user team',user_team)
+        total=len(user_team_obj)
+        print(total)
+        rank=range(1,total+1)
+        print()
+        for t in rank:
+            print(t)
+        return render(request,'Yorking/leaderboard.html',{'leaderboard_stars':user_team_obj,'rank':rank})
 
 
 

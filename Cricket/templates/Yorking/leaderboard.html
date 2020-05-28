@@ -5,27 +5,65 @@
     <title></title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 
+    <style >
+      <!-- tr:hover
+      {
+        background-color:#ffffff;
+      } -->
+      table{
+    	width:800px;
+    	margin:auto;
+    	text-align:center;
+    	table-layout:fixed;
+      width:80px;
+    }
+      table,tr
+      {
+        border: 2px solid black;
+      }
+
+      table,tr,th,td{
+      	padding:25px;
+      	color:white;
+      	font-size:18px;
+      	font-family:Arial;
+      	background:linear-gradient(top, #3c3c3c 0%, #222222 100%);
+      	background:-webkit-linear-gradient(top, #3c3c3c 0%, #222222 100%);
+        text-align: center;
+      }
+
+    </style>
+
   </head>
   <body>
+
     <div class="container">
       <div class="jumbotron">
+        <h1 style="color:#ff9900">Leader Board!!</h1>
+        <div class="container">
+          <br><br><br>
+        <table class="table table-hover">
+          <!-- <caption><b>LeaderBoard!!</b></caption> -->
+          <tr>
+            <th>Rank</th>
+            <th>User Id</th>
+            <th>Stars</th>
+          </tr>
+          {% for i in leaderboard_stars %}
+          {% for j in rank %}
+          <tr>
+            <td>{{j}}</td>
+            <td>{{i.user_id_id}}</td>
+            <td>{{i.stars}}</td>
+          </tr>
+          {% endfor %}
+          {% endfor %}
+        </table>
 
-          <div class="container">
-            <table>
-              <tr>
-                <th>User Id</th>
-                <th>Stars</th>
-              </tr>
-              <tr>
-                {% for i in leaderboard_stars %}
-                <td>{{i.user_id}}</td>
-                <td>{{i.stars}}</td>
-              </tr>
-            </table>
-          </div>
-        {% endfor %}
+        </div>
       </div>
-
     </div>
+
+
   </body>
 </html>
