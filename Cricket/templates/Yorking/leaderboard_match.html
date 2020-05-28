@@ -12,7 +12,7 @@
         <h1>Select the Match!</h1>
         <br><br>
         <div class="container">
-          <form action="{% url 'Yorking:update' %}" method="POST">
+          <form action="{% url 'Yorking:leaderboard_display' %}" method="POST">
             {% csrf_token %}
             {% for i in matches_leaderboard %}
             <div class="form-group">

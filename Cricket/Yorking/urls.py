@@ -33,6 +33,10 @@ urlpatterns = [
     #Integrating Abhigna's code:
     path('user_point_calculation/',views.user_point_calculation),
     path('leaderboard_match/',views.leaderboard_match),
+    path('leaderboard/',views.leaderboard,name='leaderboard_display'),
+
+
 
     path('User_Auth/',views.User_Auth),
+    path('signup/',views.signup,name='signup')
 ]
