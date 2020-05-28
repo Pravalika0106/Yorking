@@ -14,26 +14,40 @@
         <div class="container">
           <form action="{% url 'Yorking:perfomance_save' %}" method="POST">
             {% csrf_token %}
-            <h2>Country One:</h2>
+            <h2>{{country1}}:</h2>
 
             <h3>Batsman:</h3>
             {% for i in batsmanone_selected %}
             <div class="form-group">
               <!-- <label for="player">Player ID:{{i.player_id}}</label> -->
               <label for="player" style="color:#ff9900">{{i.player_name}}</label>
-              <label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Runs</label>
-              <input type="number" name="{{i.player_id}}" min="0" max="150">
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              <label>Runs:</label>
+              <input type="number" name="runs{{i.player_id}}" min="0" max="150">
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              <label>Catches:</label>
+              <input type="number" name="catches{{i.player_id}}" min="0" max="9">
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              <label>Wickets:</label>
+              <input type="number" name="wickets{{i.player_id}}" min="0" max="9">
               <span class="checkmark"></span>
             </div>
             {% endfor %}
 
-            <h3>Baller:</h3>
+            <h3>Bowler:</h3>
             {% for i in ballerone_selected %}
             <div class="form-group">
               <!-- <label for="player">Player ID:{{i.player_id}}</label> -->
               <label for="player" style="color:#ff9900">{{i.player_name}}</label>
-              <label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Catches</label>
-              <input type="number" name="{{i.player_id}}" min="0" max="9">
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              <label>Runs:</label>
+              <input type="number" name="runs{{i.player_id}}" min="0" max="150">
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              <label>Catches:</label>
+              <input type="number" name="catches{{i.player_id}}" min="0" max="9">
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              <label>Wickets:</label>
+              <input type="number" name="wickets{{i.player_id}}" min="0" max="9">
               <span class="checkmark"></span>
             </div>
             {% endfor %}
@@ -43,8 +57,15 @@
             <div class="form-group">
               <!-- <label for="player">Player ID:{{i.player_id}}</label> -->
               <label for="player" style="color:#ff9900">{{i.player_name}}</label>
-              <label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Wickets</label>
-              <input type="number" name="{{i.player_id}}" min="0" max="9">
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              <label>Runs:</label>
+              <input type="number" name="runs{{i.player_id}}" min="0" max="150">
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              <label>Catches:</label>
+              <input type="number" name="catches{{i.player_id}}" min="0" max="9">
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              <label>Wickets:</label>
+              <input type="number" name="wickets{{i.player_id}}" min="0" max="9">
               <span class="checkmark"></span>
             </div>
             {% endfor %}
@@ -68,26 +89,40 @@
             {% endfor %}
 
             <br>
-            <h2>Country Two:</h2>
+            <h2>{{country2}}</h2>
 
             <h3>Batsman:</h3>
             {% for i in batsmantwo_selected %}
             <div class="form-group">
               <!-- <label for="player">Player ID:{{i.player_id}}</label> -->
               <label for="player" style="color:#ff9900">{{i.player_name}}</label>
-              <label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Runs</label>
-              <input type="number" name="{{i.player_id}}" min="0" max="150">
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              <label>Runs:</label>
+              <input type="number" name="runs{{i.player_id}}" min="0" max="150">
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              <label>Catches:</label>
+              <input type="number" name="catches{{i.player_id}}" min="0" max="9">
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              <label>Wickets:</label>
+              <input type="number" name="wickets{{i.player_id}}" min="0" max="9">
               <span class="checkmark"></span>
             </div>
             {% endfor %}
 
-            <h3>Baller:</h3>
+            <h3>Bowler:</h3>
             {% for i in ballertwo_selected %}
             <div class="form-group">
               <!-- <label for="player">Player ID:{{i.player_id}}</label> -->
               <label for="player" style="color:#ff9900">{{i.player_name}}</label>
-              <label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Catches</label>
-              <input type="number" name="{{i.player_id}}" min="0" max="9">
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              <label>Runs:</label>
+              <input type="number" name="runs{{i.player_id}}" min="0" max="150">
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              <label>Catches:</label>
+              <input type="number" name="catches{{i.player_id}}" min="0" max="9">
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              <label>Wickets:</label>
+              <input type="number" name="wickets{{i.player_id}}" min="0" max="9">
               <span class="checkmark"></span>
             </div>
             {% endfor %}
@@ -97,8 +132,15 @@
             <div class="form-group">
               <!-- <label for="player">Player ID:{{i.player_id}}</label> -->
               <label for="player" style="color:#ff9900">{{i.player_name}}</label>
-              <label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Wickets</label>
-              <input type="number" name="{{i.player_id}}" min="0" max="9">
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              <label>Runs:</label>
+              <input type="number" name="runs{{i.player_id}}" min="0" max="150">
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              <label>Catches:</label>
+              <input type="number" name="catches{{i.player_id}}" min="0" max="9">
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              <label>Wickets:</label>
+              <input type="number" name="wickets{{i.player_id}}" min="0" max="9">
               <span class="checkmark"></span>
             </div>
             {% endfor %}

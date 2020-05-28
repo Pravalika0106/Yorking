@@ -20,7 +20,7 @@
             {% endfor %}
             {% endif %}
 
-            <h2 >Country One:</h2>
+            <h2 >{{country1}}</h2>
             <h3>Batsman:</h3>
             {% for i in batsman_1 %}
             <div class="form-group">
@@ -31,7 +31,7 @@
             </div>
             {% endfor %}
 
-            <h3>Baller:</h3>
+            <h3>Bowler:</h3>
             {% for i in baller_1 %}
             <div class="form-group">
               <input type="checkbox" name="baller_1" value={{i.player_id}}>
@@ -62,7 +62,7 @@
             {% endfor %}
 
 
-            <h2 >Country Two:</h2>
+            <h2 >{{country2}}</h2>
 
             <h3>Batsman:</h3>
             {% for i in batsman_2 %}
@@ -74,7 +74,7 @@
             </div>
             {% endfor %}
 
-            <h3>Baller:</h3>
+            <h3>Bowler:</h3>
             {% for i in baller_2 %}
             <div class="form-group">
               <input type="checkbox" name="baller_2" value={{i.player_id}}>

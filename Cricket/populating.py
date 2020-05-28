@@ -19,9 +19,9 @@ fakegen = Faker()
 
 countries=['Australia','England','South Africa','West Indies','New Zealand','India','Pakistan']
 'Sri Lanka','Zimbabwe','Bangladesh'
-# countries=['India']
-# categories=['allrounder']
-categories=['batsman','baller','wicketkeeper','allrounder']
+countries=['Pakistan']
+categories=['allrounder']
+# categories=['batsman','baller','wicketkeeper','allrounder']
 def populate(N=5):
     for entry in range(N):
         player_id=uuid4().hex
@@ -56,5 +56,5 @@ def populate(N=5):
 
 if __name__ == '__main__':
     print("Populating the databases...Please Wait")
-    populate(5)
+    populate(3)
     print('Populating Complete')
