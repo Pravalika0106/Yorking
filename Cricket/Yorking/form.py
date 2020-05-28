@@ -5,7 +5,6 @@ from Yorking.models import user
 class User_Authentication(forms.Form):
     user_obj=user.objects.all().values()
     user_name=forms.CharField(max_length=100)
-    email = forms.EmailField()
     password=forms.CharField(widget=forms.PasswordInput,validators=[validators.MinLengthValidator(5)])
 
 

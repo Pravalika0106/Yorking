@@ -703,8 +703,9 @@ def leaderboard_match(request):
 
 
 def User_Auth(request):
+    forms = form.User_Authentication()
     if request.method=='POST':
-    forms = form.User_Authentication(request.POST)
-    if forms.is_valid():
-        return render(request,'Yorking/User_Auth.html',{"form":forms})
-    return render(request,'Yorking/index.html')
+        forms = form.User_Authentication(request.POST)
+        if forms.is_valid():
+            return render(request,'Yorking/index.html')
+    return render(request,'Yorking/User_Auth.html',{"form":forms})
