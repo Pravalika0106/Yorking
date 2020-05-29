@@ -569,7 +569,7 @@ def top_performers(request):
 def select_team(request):
     #USER ID FROM USER AUTH PAGE
     # userid=request.session['user_id']###############################################################
-    userid=user.objects.all().values()[1]['user_id']
+    userid=user.objects.all().values()[0]['user_id']
     #RETRIVING THE MATCHES WHICH ARE PLAYED BY THE USER
     user_obj=user.objects.get(user_id=userid)
     user_team_obj=user_team.objects.filter(user_id=user_obj).values('match_id')
@@ -667,7 +667,7 @@ def dashboard(request):
 
     #USER ID FROM USER AUTH PAGE
     # userid=request.session['user_id']##############################################################
-    userid=user.objects.all().values()[1]['user_id']
+    userid=user.objects.all().values()[0]['user_id']
     user_obj=user.objects.get(user_id__exact=userid)
     user_team_obj = user_team(user_id =user_obj ,match_id = match_user_obj,captain = captain_id)
     user_team_obj.save()
@@ -683,7 +683,7 @@ def dashboard(request):
     match_user_obj=match_user.objects.get(match_id=matchid)
 
     # user_obj=user.objects.get(user_id=request.session['user_id'])####################################3
-    user_obj=user.objects.get(user_id=user.objects.all().values()[1]['user_id'])
+    user_obj=user.objects.get(user_id=user.objects.all().values()[0]['user_id'])
     user_team_obj=user_team.objects.get(user_id=user_obj,match_id=match_user_obj)
     user_team_cap=user_team.objects.filter(user_id=user_obj,match_id=match_user_obj).values()[0]['captain']
     choosen_players_obj=choosen_players.objects.filter(user_match=user_team_obj).values()
@@ -737,7 +737,7 @@ def test(request):
 def leaderboard_match(request):
     #USER ID FORM USER AUTH PAGE
     # user_obj=user.objects.get(user_id__exact=request.session['user_id'])##############################################
-    user_obj=user.objects.get(user_id__exact=user.objects.all().values()[1]['user_id'])
+    user_obj=user.objects.get(user_id__exact=user.objects.all().values()[0]['user_id'])
     user_matches_played=user_team.objects.filter(user_id_id=user_obj).values()
 
 
@@ -751,21 +751,22 @@ def leaderboard(request):
     if request.method=='POST':
         matchid=request.POST.get('matchid')
         match_user_obj=match_user.objects.get(match_id__exact=matchid)#display a page to the user and ask him to choose
-        user_team_obj=user_team.objects.filter(match_id=match_user_obj).values().order_by('stars')
+        user_team_obj=user_team.objects.filter(match_id=match_user_obj).values().order_by('-stars')
         total=len(user_team_obj)
         rank=range(1,total+1)
-        return render(request,'Yorking/leaderboard.html',{'leaderboard_stars':user_team_obj,'rank':rank})
+        lb_data=zip(rank,user_team_obj)
+        return render(request,'Yorking/leaderboard.html',{'leaderboard':lb_data})
 
 
 
-def User_Auth(request):
-    forms = form.User_Authentication()
-    if request.method=='POST':
-        forms = form.User_Authentication(request.POST)
-        if forms.is_valid():
-            request.session['user_id']=forms.cleaned_data['user_id']
-            return render(request,'Yorking/index.html')
-    return render(request,'Yorking/User_Auth.html',{"form":forms})
+# def User_Auth(request):
+#     forms = form.User_Authentication()
+#     if request.method=='POST':
+#         forms = form.User_Authentication(request.POST)
+#         if forms.is_valid():
+#             request.session['user_id']=forms.cleaned_data['user_id']
+#             return render(request,'Yorking/index.html')
+#     return render(request,'Yorking/User_Auth.html',{"form":forms})
 
 
 def signup(request):
@@ -780,3 +781,26 @@ def signup(request):
         user_obj_created.save()
         return render(request,'Yorking/index.html')
     return render(request,'Yorking/signup.html',{'valid':False})
+
+
+def login(request):
+    if request.method=='POST':
+        userid=request.POST.get('user_id')
+        password_form=request.POST.get('password')
+        user_obj=user.objects.all().values()
+        flag1=0
+        flag2=0
+        error=[]
+        for i in user_obj:
+            if i['user_id']==userid:
+                flag1=1
+                if i['password']==password_form:
+                    flag2=1
+        if flag1==0:
+            error.append('Please check your user id')
+        if flag2==0:
+            error.append('Please check password')
+        if error !=[]:
+            return render(request,'Yorking/user_login.html',{'error':error})
+        return render(request,'Yorking/index.html')
+    return render(request,'Yorking/user_login.html',{'error':False})

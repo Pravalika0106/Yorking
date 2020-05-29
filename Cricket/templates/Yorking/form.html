@@ -1,5 +1,9 @@
 <!DOCTYPE html>
+{% extends 'base.html' %}
 {% load static %}
+
+{% block content %}
+
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
@@ -11,7 +15,7 @@
   <body>
 
     <!-- NAVBAR -->
-    <nav class="navbar navbar-inverse">
+    <!-- <nav class="navbar navbar-inverse">
       <div class="container-fluid">
         <div class="navbar-header">
           <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
@@ -30,7 +34,7 @@
           </ul>
         </div>
       </div>
-    </nav>
+    </nav> -->
 
 
     <!-- EVERYTHING INSIDE HTML PAGE -->
@@ -96,3 +100,4 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
   </body>
 </html>
+{% endblock %}

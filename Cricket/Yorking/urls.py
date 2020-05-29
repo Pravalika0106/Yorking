@@ -37,8 +37,9 @@ urlpatterns = [
 
 
 
-    path('User_Auth/',views.User_Auth,name='login'),
-    path('signup/',views.signup,name='signup')
+    # path('User_Auth/',views.User_Auth,name='login'),
+    path('signup/',views.signup,name='signup'),
+    path('user_login/',views.login,name='login'),
 
     #Integrating Vaishnavi's code heree
 ]

@@ -13,25 +13,22 @@ class User_Authentication(forms.Form):
         user_obj=user.objects.all().values()
         user_id=all_clean_data['user_id']
         password=all_clean_data['password']
-        # user_obj=all_clean_data['user_obj']
+        flag1=0
+        flag2=0
+        print(user_id)
+        print(len(user_id))
+        print(password)
         for i in user_obj:
-            if user_id!=i['user_id']:
-                raise forms.ValidationError('Enter the correct user id')
-            if password!=i['password']:
-                raise forms.ValidationError('Enter the correct password')
-
-
-
-
-
-
-
-
-
-
-
-    # match_user_obj=match_user.objects.filter(status__exact='Not occured').values('match_id')
-    # listof=[]
-    # for i in match_user_obj:
-    #     listof.append((i,i))
-    # matchid=forms.UUIDField(widget=forms.RadioSelect(choices=listof))
+            if i['user_id']==user_id:
+                flag=1
+                print(user_id)
+                print(len(user_id))
+                print(flag1)
+        if flag1!=1:
+                raise forms.ValidationError('Please check your User Id')
+            # if password==i['password']:
+            #     flag2=1
+            #     print(password)
+            #     print(flag2)
+            #     if flag2!=1:
+            #         raise forms.ValidationError('Please check your Password')

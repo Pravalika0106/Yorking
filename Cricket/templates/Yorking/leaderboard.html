@@ -1,4 +1,9 @@
 <!DOCTYPE html>
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
@@ -49,14 +54,12 @@
             <th>User Id</th>
             <th>Stars</th>
           </tr>
-          {% for i in leaderboard_stars %}
-          {% for j in rank %}
+          {% for i,j in leaderboard %}
           <tr>
-            <td>{{j}}</td>
-            <td>{{i.user_id_id}}</td>
-            <td>{{i.stars}}</td>
+            <td>{{i}}</td>
+            <td>{{j.user_id_id}}</td>
+            <td>{{j.stars}}</td>
           </tr>
-          {% endfor %}
           {% endfor %}
         </table>
 
@@ -67,3 +70,4 @@
 
   </body>
 </html>
+{% endblock %}
