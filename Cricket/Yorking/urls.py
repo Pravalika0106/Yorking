@@ -3,8 +3,8 @@ from django.urls import path,include
 from Yorking import views
 
 urlpatterns = [
-    path('',views.index,name='index_page'),
-    path('form/',views.modelform),
+    path('',views.index,name='index'),
+    path('form/',views.modelform,name='form'),
     path('form_check/',views.form_check,name='form_check'),
     path('team_selection/',views.selection,name='selection'),
     path('check_constrains_1' , views.check_constrains_1,name='constrains'),
@@ -37,6 +37,8 @@ urlpatterns = [
 
 
 
-    path('User_Auth/',views.User_Auth),
+    path('User_Auth/',views.User_Auth,name='login'),
     path('signup/',views.signup,name='signup')
+
+    #Integrating Vaishnavi's code heree
 ]

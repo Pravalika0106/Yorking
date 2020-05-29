@@ -1,0 +1,58 @@
+<!-- ======= Header ======= -->
+<header id="header" class="header header-hide">
+    <div class="container">
+
+      <div id="logo" class="pull-left">
+        <h1><a href="{% url 'Yorking:index' %}" class="scrollto">Yorking</a></h1>
+      </div>
+
+      <nav id="nav-menu-container">
+        <ul class="nav-menu">
+          <li
+          {% if '/' == request.path  %}
+            class="menu-active"
+          {% else %}
+            class="menu"
+          {% endif%}><a href="{% url 'Yorking:index' %}">Home</a></li>
+          <li
+          {% if 'form' in request.path  %}
+            class="menu-active"
+          {% else %}
+            class="menu"
+          {% endif%}><a href="{% url 'Yorking:form' %}">AdminMatch</a></li>
+          <li
+          {% if 'edit' in request.path  %}
+            class="menu-active"
+          {% else %}
+            class="menu"
+          {% endif%}><a href="{% url 'Yorking:edit' %}">AdminPlayerSelection</a></li>
+          <li
+          {% if 'select_team' in request.path  %}
+            class="menu-active"
+          {% else %}
+            class="menu"
+          {% endif%}><a href="{% url 'Yorking:select_team' %}">PlayMatch</a></li>
+          <li
+          {% if 'leaderboard_match' in request.path  %}
+            class="menu-active"
+          {% else %}
+            class="menu"
+          {% endif%}><a href="{% url 'Yorking:leaderboard_match' %}">Leaderboard</a></li>
+          <li
+          {% if 'login' in request.path  %}
+            class="menu-active"
+          {% else %}
+            class="menu"
+          {% endif%}><a href="{% url 'Yorking:login' %}">Login</a></li>
+          <li
+          {% if 'signup' in request.path  %}
+            class="menu-active"
+          {% else %}
+            class="menu"
+          {% endif%}><a href="{% url 'Yorking:signup' %}">SignUp</a></li>
+
+          <!-- <li><a href="#contact">Contact</a></li> -->
+        </ul>
+      </nav><!-- #nav-menu-container -->
+    </div>
+  </header><!-- End Header -->
