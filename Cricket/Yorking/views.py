@@ -573,14 +573,28 @@ def select_team(request):
     #RETRIVING THE MATCHES WHICH ARE PLAYED BY THE USER
     user_obj=user.objects.get(user_id=userid)
     user_team_obj=user_team.objects.filter(user_id=user_obj).values('match_id')
+    print('user played',user_team_obj)
     matches=[]
     #RETRIVING THE MATCHES WHO'S STATUS=AVAILABLE
     match_user_obj=match_user.objects.filter(status='Available').values()
+    print('AVAILABLE',len(match_user_obj))
+
     #GETTING THE MATCHES NOT PLAYED BY THE USER
+    available=[]
+    user_played=[]
+    matches=[]
     for i in match_user_obj:
-        for j in user_team_obj:
-            if i['match_id'] != j['match_id']:
-                matches.append(i)
+        available.append(i['match_id'])
+        print(i['match_id'],end=" ")
+    print()
+    for i in user_team_obj:
+        user_played.append(i['match_id'])
+        print(i['match_id'],end=" ")
+    print()
+    for i in user_played:
+        if i not in available:
+            matches.append(i)
+    print(matches)
     if len(matches)==0:
         error="No New Matches Available! Come back Later Some time"
     else:
