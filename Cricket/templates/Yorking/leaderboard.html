@@ -55,11 +55,19 @@
             <th>Stars</th>
           </tr>
           {% for i,j in leaderboard %}
+          {% if j.user_id_id == current_user %}
+          <tr>
+            <td style="color:#ff1a1a; font-size:25px;">{{i}}</td>
+            <td style="color:#ff1a1a; font-size:25px;">{{j.user_id_id}}</td>
+            <td style="color:#ff1a1a; font-size:25px;">{{j.stars}}</td>
+          </tr>
+          {% else %}
           <tr>
             <td>{{i}}</td>
             <td>{{j.user_id_id}}</td>
             <td>{{j.stars}}</td>
           </tr>
+          {% endif %}
           {% endfor %}
         </table>
 
