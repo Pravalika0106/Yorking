@@ -11,6 +11,7 @@ from django.http import HttpResponse,HttpResponseRedirect
 def signup(request):
     if request.method=='POST':
         userid=request.POST.get('user_id')
+        request.session['user_id']=userid
         password_form=request.POST.get('password')
         user_obj=user.objects.all().values()
         for i in user_obj:
@@ -24,39 +25,49 @@ def signup(request):
 
 def login(request):
     if request.method=='POST':
-        # request.session.set_expiry(30000)
+        # request.session.set_expiry(3)
         userid=request.POST.get('user_id')
         password_form=request.POST.get('password')
-        request.session['userid']=userid
-        print(request.session['userid'])
-        user_obj=user.objects.all().values()
-        flag1=0
-        flag2=0
-        error=[]
-        for i in user_obj:
-            if i['user_id']==userid:
-                flag1=1
-                if i['password']==password_form:
-                    flag2=1
-        if flag1==0:
-            error.append('Please check your user id')
-        if flag2==0:
-            error.append('Please check password')
-        if error !=[]:
-            return render(request,'Yorking/user_login.html',{'error':error})
+        request.session['user_id']=userid
+        request.session['password']=password_form
+        signup=request.POST.get('signup')
+        if signup=='':
+            return redirect('/signup')
+        if userid=='Admin' and password_form=="AdminPassword":
+            return render(request,'Yorking/index.html')
+        else:
+            user_obj=user.objects.all().values()
+            flag1=0
+            flag2=0
+            error=[]
+            for i in user_obj:
+                if i['user_id']==userid:
+                    flag1=1
+                    if i['password']==password_form:
+                        flag2=1
+            if flag1==0:
+                error.append('Please check your user id')
+            if flag2==0:
+                error.append('Please check password')
+            if error !=[]:
+                return render(request,'Yorking/user_login.html',{'error':error})
         return render(request,'Yorking/index.html')
     return render(request,'Yorking/user_login.html',{'error':False})
 
 
 def index(request):
-    print(request.session.get('userid',default='login required'))
-    userid=request.session.get('userid',default='login required')
+    userid=request.session.get('user_id',default='login required')
     if userid=='login required':
-        return render(request,'Yorking/user_login.html')
+        return redirect('/user_login')
     return render(request,'Yorking/index.html')
 
 
 def edit_selection(request):
+    id=request.session.get('user_id',default='login required')
+    if id=='login required':
+        return redirect('/user_login')
+    if id !='Admin' or request.session['password']!="AdminPassword":
+        return HttpResponse("Cannot access Admin page with user Account :(")
     match_user_obj=match_user.objects.filter(status__exact='Not occured')
     return render(request,'Yorking/edit_selection.html',{'matchcountries':match_user_obj})
 
@@ -315,6 +326,11 @@ def perfomance_update_save(request):
 ##########OTHER THREAD ALL TOGETHER#######
 
 def modelform(request):
+    id=request.session.get('user_id',default='login required')
+    if id=='login required':
+        return redirect('/user_login')
+    if id !='Admin' or request.session['password']!="AdminPassword":
+        return HttpResponse("Cannot access Admin page with user Account :(")
     country_team_obj=country_team.objects.order_by('country').values('country').distinct()
     return render(request,'Yorking/form.html',{'error':[],'countries':country_team_obj})
 
@@ -610,17 +626,18 @@ def top_performers(request):
 
 
 def select_team(request):
-    #USER ID FROM USER AUTH PAGE
-    # userid=request.session['user_id']###############################################################
-    userid=user.objects.all().values()[1]['user_id']
+    #USER ID FROM USER LOGIN/SIGNUP PAGE
+    userid=request.session.get('user_id',default='login required')
+    if userid=='login required':
+        return redirect('/user_login')
+    userid=request.session['user_id']
+    # userid=user.objects.all().values()[1]['user_id']###########################################
     #RETRIVING THE MATCHES WHICH ARE PLAYED BY THE USER
     user_obj=user.objects.get(user_id=userid)
     user_team_obj=user_team.objects.filter(user_id=user_obj).values('match_id')
-    print('user played',user_team_obj)
     matches=[]
     #RETRIVING THE MATCHES WHO'S STATUS=AVAILABLE
     match_user_obj=match_user.objects.filter(status='Available').values()
-    print('AVAILABLE',len(match_user_obj))
 
     #GETTING THE MATCHES NOT PLAYED BY THE USER
     available=[]
@@ -670,7 +687,6 @@ def user_team_validation(request):
     request.session['selected_players']=selected_players
 
 
-    print("Selected batsman: ", selected_batsmen)
     for i in selected_batsmen:
         selected_points+=country_team.objects.filter(player_id__exact=i)[0].points
     for i in selected_bowler:
@@ -711,7 +727,6 @@ def user_team_validation(request):
         for i in selected_all_rounder:
             all_rounder_selected.append(country_team.objects.filter(player_id__exact=i).values('player_id','player_name')[0])
 
-        print('else for loop',bowler_selected)
         return render(request,'Yorking/user_team.html',{'batsmen':batsmen_selected,'bowler':bowler_selected,'all_rounder':all_rounder_selected,'wicket_keeper':wicket_keeper_selected})
 
 
@@ -721,8 +736,8 @@ def dashboard(request):
     match_user_obj = match_user.objects.get(match_id = request.session['matchid'])
 
     #USER ID FROM USER AUTH PAGE
-    # userid=request.session['user_id']##############################################################
-    userid=user.objects.all().values()[1]['user_id']
+    userid=request.session['user_id']
+    # userid=user.objects.all().values()[1]['user_id']#################################
     user_obj=user.objects.get(user_id__exact=userid)
     user_team_obj = user_team(user_id =user_obj ,match_id = match_user_obj,captain = captain_id)
     user_team_obj.save()
@@ -737,8 +752,8 @@ def dashboard(request):
     matchid=request.session['matchid']
     match_user_obj=match_user.objects.get(match_id=matchid)
 
-    # user_obj=user.objects.get(user_id=request.session['user_id'])####################################3
-    user_obj=user.objects.get(user_id=user.objects.all().values()[1]['user_id'])
+    user_obj=user.objects.get(user_id=request.session['user_id'])
+    # user_obj=user.objects.get(user_id=user.objects.all().values()[1]['user_id'])####################################
     user_team_obj=user_team.objects.get(user_id=user_obj,match_id=match_user_obj)
     user_team_cap=user_team.objects.filter(user_id=user_obj,match_id=match_user_obj).values()[0]['captain']
     choosen_players_obj=choosen_players.objects.filter(user_match=user_team_obj).values()
@@ -766,35 +781,16 @@ def test(request):
 
 #INSTEAD OF CALCULATING IT SEPERATELY IT IS DONE CONTINUOUSLY AFTER THE PLAYERS ARE SELECTED
 
-# def user_point_calculation():
-#     #MATCH ID POSTED FROM SELECT TEAM
-#     matchid=request.POST['matchid']
-#     match_user_obj=match_user.objects.get(match_id=matchid)
-#
-#     user_obj=user.objects.get(user_id=request.session['user_id'])
-#
-#     user_team_obj=user_team.objects.get(user_id=user_obj,match_id=match_user_obj)
-#     user_team_cap=user_team.objects.filter(user_id=user_obj,match_id=match_user_obj).values()[0]['captain']
-#     choosen_players_obj=choosen_players.objects.filter(user_match=user_team_obj).values()
-#
-#     match_performance_obj=match_performance.objects.filter(match_id=match_user_obj).values()
-#     sum=0
-#     for i in choosen_players_obj:
-#         for j in match_performance_obj:
-#             if i['player_id_id']==j['player_id_id']:
-#                 runs=j['runs']
-#                 catches=j['catches']
-#                 wickets=j['wickets']
-#                 sum=sum+runs+(catches*20)+(wickets*20)
-#     user_team_obj=user_team.objects.filter(user_id=user_obj,match_id=match_user_obj).update(stars=sum)
-#     return redirect('leaderboard_match')
 
 def leaderboard_match(request):
     #USER ID FORM USER AUTH PAGE
-    # user_obj=user.objects.get(user_id__exact=request.session['user_id'])##############################################
-    current_user=user.objects.all().values()[1]['user_id']
-    request.session['current_user']=current_user
-    user_obj=user.objects.get(user_id__exact=current_user)
+    userid=request.session.get('user_id',default='login required')
+    if userid=='login required':
+        return redirect('/user_login')
+    user_obj=user.objects.get(user_id__exact=request.session['user_id'])
+    # current_user=user.objects.all().values()[1]['user_id']########################################
+    # request.session['current_user']=current_user
+    # user_obj=user.objects.get(user_id__exact=current_user)
     user_matches_played=user_team.objects.filter(user_id_id=user_obj).values()
 
 
@@ -813,14 +809,3 @@ def leaderboard(request):
         rank=range(1,total+1)
         lb_data=zip(rank,user_team_obj)
         return render(request,'Yorking/leaderboard.html',{'leaderboard':lb_data,'current_user':request.session['current_user']})
-
-
-
-# def User_Auth(request):
-#     forms = form.User_Authentication()
-#     if request.method=='POST':
-#         forms = form.User_Authentication(request.POST)
-#         if forms.is_valid():
-#             request.session['user_id']=forms.cleaned_data['user_id']
-#             return render(request,'Yorking/index.html')
-#     return render(request,'Yorking/User_Auth.html',{"form":forms})
